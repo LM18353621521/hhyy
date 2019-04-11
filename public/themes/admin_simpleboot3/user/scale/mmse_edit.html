@@ -1,0 +1,218 @@
+<include file="public@header"/>
+<script src="__STATIC__/js/laydate/laydate.js"></script>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+    .form-control {
+        display: inherit;
+        width: 80%;
+    }
+
+    .w_60 {
+        width: 60%;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <foreach name="type_list" item="vo" key="k">
+            <li <eq name="inc_type" value="$k">class="active"</eq> ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$k))}" >{$vo}</a></li>
+        </foreach>
+    </ul>
+    <br>
+    <table class="table table-hover table-bordered table-list">
+        <thead>
+        <tr>
+            <th width="200">姓名：{$user.user_nickname}</th>
+            <th width="120">编号：{$user.user_code}</th>
+            <th width="100">性别：<if condition="$user.sex eq 1">男<else/>女</if></th>
+            <th width="100">年龄：{$user.age}</th>
+            <th></th>
+        </tr>
+        </thead>
+    </table>
+    <br>
+    <ul class="nav nav-tabs" style="display: inline-block;">
+        <li ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">记录列表</a></li>
+        <li class="active"><a href="javascript:;"><empty name="data">添加<else/>编辑</empty>记录</a></li>
+    </ul>
+    <form action="{:url('Scale/addPost',array('inc_type'=>$inc_type))}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <input type="hidden" name="user_id" value="{$user.id}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="inc_type" value="{$inc_type}">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="100">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="title" required value="{$data.title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        下面是检查认知智力功能的一些问题，请直接向被试者询问，
+                        <br>
+                        并根据被试者的实际表现和回答结果进行选择（1、正确    0、错误    ）。
+                        <br><br>
+                        </thead>
+                        <tr>
+                            <th width="420" style="text-align: center">
+                                症状
+                            </th>
+                            <td width="80">正确&nbsp;&nbsp;</td>
+                            <td width="80">错误&nbsp;&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <foreach name="items_list" item="vo" key="k">
+                            <if condition="$k eq 1">
+                                <tr class="score_tr">
+                                    <th colspan="4">
+                                       一、 定向力
+                                        -----
+                                        总分：<input class="form-control w_60 score_item1" name="score_item[1]" value="{$data[score_item][1]|default=0}" placeholder=""/>
+                                    </th>
+                                </tr>
+                             </if>
+                            <if condition="$k eq 11">
+                                <tr class="score_tr">
+                                    <th colspan="4">
+                                       二、 记忆力
+                                        -----
+                                        总分：<input class="form-control w_60 score_item2" name="score_item[2]" value="{$data[score_item][2]|default=0}" placeholder=""/>
+                                    </th>
+                                </tr>
+                            </if>
+                            <if condition="$k eq 14">
+                                <tr class="score_tr">
+                                    <th colspan="4">
+                                      三、  注意力和计算力
+                                        -----
+                                        总分：<input class="form-control w_60 score_item3" name="score_item[3]" value="{$data[score_item][3]|default=0}" placeholder=""/>
+                                    </th>
+                                </tr>
+                            </if>
+                            <if condition="$k eq 19">
+                                <tr class="score_tr">
+                                    <th colspan="4">
+                                       四、 回忆能力
+                                        -----
+                                        总分：<input class="form-control w_60 score_item4" name="score_item[4]" value="{$data[score_item][4]|default=0}" placeholder=""/>
+                                    </th>
+                                </tr>
+                            </if>
+                            <if condition="$k eq 22">
+                                <tr class="score_tr">
+                                    <th colspan="4">
+                                        五、语言能力
+                                        -----
+                                        总分：<input class="form-control w_60 score_item5" name="score_item[5]" value="{$data[score_item][5]|default=0}" placeholder=""/>
+                                    </th>
+                                </tr>
+                            </if>
+
+                            <tr class="score_tr">
+                                <th >
+                                    {$k}、{$vo.name}
+                                </th>
+                                <td ><label for="mmse1{$k}"><input class="redio_sel" key="{$k}" type="radio" id="mmse1{$k}" name="items[mmse][{$k}]"  value="1" <eq name="data[items][mmse][$k]" value="1">checked</eq>  > 正确 &nbsp;&nbsp;</label></td>
+                                <td ><label for="mmse2{$k}"><input class="redio_sel"  key="{$k}"  type="radio" id="mmse2{$k}" name="items[mmse][{$k}]"  value="0" <eq name="data[items][mmse][$k]" value="0">checked</eq>  > 错误 &nbsp;&nbsp;</label></td>
+                                <td></td>
+                            </tr>
+
+                        </foreach>
+
+                        <tr>
+                            <th width="50">评分</th>
+                            <td colspan="3">
+                                <input class="form-control" name="score" value="{$data.score}" placeholder="请输入评分"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="50">备注</th>
+                            <td colspan="3">
+                                <textarea class="form-control" style="height: 100px;" name="remark" placeholder="请填写备注">{$data.remark}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit"><empty name="data">{:lang('ADD')}<else/>{:lang('EDIT')}</empty></button>
+                        <a class="btn btn-default" href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err) {
+        }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#visit_time', //指定元素
+            type: 'datetime'
+        });
+
+
+        $('.redio_sel').change(function(){
+            var t1=0;
+//            var key = $(this).attr('key');
+            var item1=item2=item3=item4=item5=0;
+            $(".score_tr").each(function(){
+                var score =$(this).find("input[type='radio']:checked").val();
+                var key =$(this).find("input[type='radio']:checked").attr('key');
+                score=score?parseFloat(score):0;
+                t1+=score;
+                if(key<=10){
+                    item1+=score;
+                }
+                if(key>10&&key<=13){
+                    item2+=score;
+                }
+                if(key>13&&key<=18){
+                    item3+=score;
+                }
+                if(key>18&&key<=21){
+                    item4+=score;
+                }
+                if(key>21&&key<=30){
+                    item5+=score;
+                }
+                $('input[name=score]').val(t1);
+                 $('.score_item1').val(item1);
+                 $('.score_item2').val(item2);
+                 $('.score_item3').val(item3);
+                 $('.score_item4').val(item4);
+                 $('.score_item5').val(item5);
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

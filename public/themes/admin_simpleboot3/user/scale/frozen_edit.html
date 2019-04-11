@@ -1,0 +1,185 @@
+<include file="public@header"/>
+<script src="__STATIC__/js/laydate/laydate.js"></script>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+    .form-control {
+        display: inherit;
+        width: 80%;
+    }
+
+    .w_60 {
+        width: 60%;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <foreach name="type_list" item="vo" key="k">
+            <li <eq name="inc_type" value="$k">class="active"</eq> ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$k))}" >{$vo}</a></li>
+        </foreach>
+    </ul>
+    <br>
+    <table class="table table-hover table-bordered table-list">
+        <thead>
+        <tr>
+            <th width="200">姓名：{$user.user_nickname}</th>
+            <th width="120">编号：{$user.user_code}</th>
+            <th width="100">性别：<if condition="$user.sex eq 1">男<else/>女</if></th>
+            <th width="100">年龄：{$user.age}</th>
+            <th></th>
+        </tr>
+        </thead>
+    </table>
+    <br>
+    <ul class="nav nav-tabs" style="display: inline-block;">
+        <li ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">记录列表</a></li>
+        <li class="active"><a href="javascript:;"><empty name="data">添加<else/>编辑</empty>记录</a></li>
+    </ul>
+    <form action="{:url('Scale/addPost',array('inc_type'=>$inc_type))}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <input type="hidden" name="user_id" value="{$user.id}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="inc_type" value="{$inc_type}">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="100">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="title" required value="{$data.title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        &nbsp;&nbsp;&nbsp;&nbsp;新版冻结步态问卷（满分28分）
+                        <br>
+                        <br>
+                        </thead>
+                        <foreach name="items_list" item="vo" key="k">
+                            <if condition="$k eq 1">
+                                <tr class="score_tr">
+                                    <th colspan="2">
+                                        一、 判断是否为冻结步态：
+                                    </th>
+                                </tr>
+                            </if>
+                            <if condition="$k eq 2">
+                                <tr class="score_tr">
+                                    <th>
+                                        二、 判断冻结步态的严重程度：
+                                    </th>
+                                    <td>
+                                        总分：<input class="form-control w_60 score_item1" name="score_item[1]" value="{$data[score_item][1]|default=0}" placeholder=""/>
+                                    </td>
+                                </tr>
+                            </if>
+                            <if condition="$k eq 7">
+                                <tr class="score_tr">
+                                    <th width="800">
+                                        三、 冻结现象对您日常生活的影响：
+                                    </th>
+                                    <td>
+                                        总分：<input class="form-control w_60 score_item2" name="score_item[2]" value="{$data[score_item][2]|default=0}" placeholder=""/>
+                                    </td>
+                                </tr>
+                            </if>
+                            <tr>
+                                <th width="820"  colspan="2">
+                                    {$k}、 {$vo.name}
+                                </th>
+                            </tr>
+                            <tr <gt name="k" value="1">class="score_tr"</gt>>
+                                <th  colspan="2">
+                                    <foreach name="vo.radio" item="vv" key="kk">                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="item{$k}{$kk}">
+                                            <input type="radio" key="{$k}"  <gt name="k" value="1">class="redio_sel"</gt>    id="item{$k}{$kk}" name="items[{$k}]"  value="{$kk}" <heq name="data[items][$k]" value="$kk">checked</heq>  > &nbsp;&nbsp;{$kk}：  &nbsp;&nbsp;
+                                            {$vv}
+                                        </label>
+                                        <br>
+                                    </foreach>
+                            </th>
+                            </tr>
+                            </foreach>
+
+                        <tr>
+                            <th width="50">总评分</th>
+                            <td colspan="3">
+                                <input class="form-control" name="score" value="{$data.score}" placeholder="请输入评分"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="50">备注</th>
+                            <td colspan="3">
+                                <textarea class="form-control" style="height: 100px;" name="remark" placeholder="请填写备注">{$data.remark}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit"><empty name="data">{:lang('ADD')}<else/>{:lang('EDIT')}</empty></button>
+                        <a class="btn btn-default" href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err) {
+        }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#visit_time', //指定元素
+            type: 'datetime'
+        });
+
+
+        $('.redio_sel').change(function(){
+            var t1=0;
+//            var key = $(this).attr('key');
+            var item1=item2=0;
+            $(".score_tr").each(function(){
+                var score =$(this).find("input[type='radio']:checked").val();
+                var key =$(this).find("input[type='radio']:checked").attr('key');
+                score=score?parseFloat(score):0;
+                t1+=score;
+                if(key>1&&key<=6){
+                    item1+=score;
+                }
+                if(key>6&&key<=9){
+                    item2+=score;
+                }
+                $('input[name=score]').val(t1);
+                $('.score_item1').val(item1);
+                $('.score_item2').val(item2);
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

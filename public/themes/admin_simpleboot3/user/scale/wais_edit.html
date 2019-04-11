@@ -1,0 +1,154 @@
+<include file="public@header"/>
+<script src="__STATIC__/js/laydate/laydate.js"></script>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+    .form-control {
+        display: inherit;
+        width: 80%;
+    }
+
+    .w_60 {
+        width: 60%;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <foreach name="type_list" item="vo" key="k">
+            <li <eq name="inc_type" value="$k">class="active"</eq> ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$k))}" >{$vo}</a></li>
+        </foreach>
+    </ul>
+    <br>
+    <table class="table table-hover table-bordered table-list">
+        <thead>
+        <tr>
+            <th width="200">姓名：{$user.user_nickname}</th>
+            <th width="120">编号：{$user.user_code}</th>
+            <th width="100">性别：<if condition="$user.sex eq 1">男<else/>女</if></th>
+            <th width="100">年龄：{$user.age}</th>
+            <th></th>
+        </tr>
+        </thead>
+    </table>
+    <br>
+    <ul class="nav nav-tabs" style="display: inline-block;">
+        <li ><a href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">记录列表</a></li>
+        <li class="active"><a href="javascript:;"><empty name="data">添加<else/>编辑</empty>记录</a></li>
+    </ul>
+    <form action="{:url('Scale/addPost',array('inc_type'=>$inc_type))}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <input type="hidden" name="user_id" value="{$user.id}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="inc_type" value="{$inc_type}">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="100">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="title" required value="{$data.title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        &nbsp;&nbsp;&nbsp;&nbsp;WAIS-III数字光度量表
+                        <br>
+                        <br>
+                        </thead>
+
+                                <!--<tr class="score_tr">-->
+                                    <!--<th colspan="4">-->
+                                       <!--一、 定向力-->
+                                        <!-- -&#45;&#45;&#45;&#45;-->
+                                        <!--总分：<input class="form-control w_60 score_item1" name="score_item[1]" value="{$data[score_item][1]|default=0}" placeholder=""/>-->
+                                    <!--</th>-->
+                                <!--</tr>-->
+                        <tr>
+                            <th width="420" style="text-align: center">
+                                项目
+                            </th>
+                            <td>分数&nbsp;&nbsp;</td>
+                        </tr>
+                        <foreach name="items_list" item="vo" key="k">
+                            <tr class="score_tr">
+                                <th width="620" >
+                                    {$k}、 {$vo.name}
+                                </th>
+                                <td>
+                                    <label for="item{$k}">
+                                        <input type="number"  class="form-control w_60 redio_sel"   id="item{$k}" name="items[{$k}]" value="{$data[items][$k]|default=0}" /> &nbsp;&nbsp;
+                                        {$vv}
+                                    </label></td>
+                            </tr>
+                            </foreach>
+                        <tr>
+                            <th width="50">评分</th>
+                            <td colspan="3">
+                                <input class="form-control" name="score" value="{$data.score}" placeholder="请输入评分"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="50">备注</th>
+                            <td colspan="3">
+                                <textarea class="form-control" style="height: 100px;" name="remark" placeholder="请填写备注">{$data.remark}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit"><empty name="data">{:lang('ADD')}<else/>{:lang('EDIT')}</empty></button>
+                        <a class="btn btn-default" href="{:url('Scale/index',array('user_id'=>$user[id],'inc_type'=>$inc_type))}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err) {
+        }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#visit_time', //指定元素
+            type: 'datetime'
+        });
+
+        $('.redio_sel').bind('input propertychange',function() {
+            var t1=0;
+            $(".score_tr").each(function(){
+                var score =$(this).find(".redio_sel ").val();
+                score=score?parseFloat(score):0;
+                t1+=score;
+                $('input[name=score]').val(t1);
+            });
+        });
+
+
+    });
+</script>
+</body>
+</html>
