@@ -45,6 +45,353 @@ function downloadExcel($strTable, $filename)
     echo '<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . $strTable . '</html>';
 }
 
+function get_assist_check($userList = array(), $visitList = array(), $user_ids = array())
+{
+    $items_list = array(
+        'ct' => array('name' => '白细胞', 'unit' => '*109/L'),
+        'mri' => array('name' => '血红蛋白', 'unit' => 'g/L'),
+        'spect' => array('name' => '红细胞', 'unit' => '*1012/L'),
+        'pet' => array('name' => '甘油三酯', 'unit' => 'mmol/L'),
+        'sleep' => array('name' => '总胆固醇', 'unit' => 'mmol/L'),
+        'eeg' => array('name' => '低密度', 'unit' => 'mmol/L'),
+        'cardiokymography' => array('name' => '高密度', 'unit' => 'mmol/L'),
+    );
+
+    //设置表头
+    $one = array(
+        '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
+    );
+    foreach ($items_list as $key => $val) {
+        $one[] = $items_list[$key]['name'].$items_list[$key]['unit'];
+    }
+    $one[] = "备注";
+    $cellTitle = $one;
+    $model = Db::name('user_assay_check');
+    $dataList = $model->alias('a')
+        ->where(array('user_id' => array('in', $user_ids)))
+        ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
+    $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
+
+    //拼装数据
+    $celldata = [];
+    foreach ($dataList as $val) {
+        $two = [];
+        $user = $userList[$val['user_id']];
+        $visit = $visitList[$val['visit_id']];
+        $two[] = $user['user_nickname'];
+        $two[] = $user['user_code'];
+        $two[] = date("Y-m-d", $user['birthday']);
+        $two[] = $sex_text[$user['sex']];
+        $two[] = $user['age'];
+        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
+        $items = unserialize($val['items']);
+        foreach ($items_list as $key => $vv) {
+            $two[] = $items[$key];
+        }
+        $two[] = $val['remark'];
+        $celldata[] = $two;
+    }
+    //合并单元格设置
+    $cellMerge = array(
+        array('title' => '患者信息', 'start' => "A1", 'end' => 'G1'),
+        array('title' => '化验检查', 'start' => "H1", 'end' => 'AC1'),
+    );
+    //设置工作区标题
+    $sheetName = "化验检查";
+
+    return array(
+        'sheetName' => $sheetName,
+        'cellMerge' => $cellMerge,
+        'cellTitle' => $cellTitle,
+        'celldata' => $celldata,
+    );
+}
+
+function get_assay_check($userList = array(), $visitList = array(), $user_ids = array())
+{
+    $items_list = array(
+        '1' => array('name' => '白细胞', 'unit' => '*109/L'),
+        '2' => array('name' => '血红蛋白', 'unit' => 'g/L'),
+        '3' => array('name' => '红细胞', 'unit' => '*1012/L'),
+        '4' => array('name' => '甘油三酯', 'unit' => 'mmol/L'),
+        '5' => array('name' => '总胆固醇', 'unit' => 'mmol/L'),
+        '6' => array('name' => '低密度', 'unit' => 'mmol/L'),
+        '7' => array('name' => '高密度', 'unit' => 'mmol/L'),
+        '8' => array('name' => '同型半胱氨酸', 'unit' => 'mmol/L'),
+        '9' => array('name' => '叶酸', 'unit' => 'ng/ml'),
+        '10' => array('name' => '维生素B12', 'unit' => 'pg/ml'),
+        '11' => array('name' => '铁蛋白', 'unit' => ' ng/ml'),
+        '12' => array('name' => '总胆红素', 'unit' => 'mmol/L'),
+        '13' => array('name' => '直接胆红素', 'unit' => 'mmol/L'),
+        '14' => array('name' => '间接胆红素', 'unit' => 'mmol/L'),
+        '15' => array('name' => '谷氨酰转肽酶', 'unit' => 'U/L'),
+        '16' => array('name' => '谷丙转氨酶', 'unit' => 'U/L'),
+        '17' => array('name' => '谷草转氨酶', 'unit' => 'U/L'),
+        '18' => array('name' => '碱性磷酸酶', 'unit' => 'U/L'),
+        '19' => array('name' => '尿素氮', 'unit' => 'mmol/L'),
+        '20' => array('name' => '肌酐', 'unit' => 'mmol/L'),
+        '21' => array('name' => '尿酸', 'unit' => 'mmol/L'),
+    );
+
+    //设置表头
+    $one = array(
+        '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
+    );
+    foreach ($items_list as $key => $val) {
+        $one[] = $items_list[$key]['name'].$items_list[$key]['unit'];
+    }
+    $one[] = "备注";
+    $cellTitle = $one;
+    $model = Db::name('user_assay_check');
+    $dataList = $model->alias('a')
+        ->where(array('user_id' => array('in', $user_ids)))
+        ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
+    $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
+
+    //拼装数据
+    $celldata = [];
+    foreach ($dataList as $val) {
+        $two = [];
+        $user = $userList[$val['user_id']];
+        $visit = $visitList[$val['visit_id']];
+        $two[] = $user['user_nickname'];
+        $two[] = $user['user_code'];
+        $two[] = date("Y-m-d", $user['birthday']);
+        $two[] = $sex_text[$user['sex']];
+        $two[] = $user['age'];
+        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
+        $items = unserialize($val['items']);
+        foreach ($items_list as $key => $vv) {
+            $two[] = $items[$key];
+        }
+        $two[] = $val['remark'];
+        $celldata[] = $two;
+    }
+    //合并单元格设置
+    $cellMerge = array(
+        array('title' => '患者信息', 'start' => "A1", 'end' => 'G1'),
+        array('title' => '化验检查', 'start' => "H1", 'end' => 'AC1'),
+    );
+    //设置工作区标题
+    $sheetName = "化验检查";
+
+    return array(
+        'sheetName' => $sheetName,
+        'cellMerge' => $cellMerge,
+        'cellTitle' => $cellTitle,
+        'celldata' => $celldata,
+    );
+}
+
+
+function get_drug_history($userList = array(), $visitList = array(), $user_ids = array())
+{
+    $items_list = array(
+        '1' => array('name' => '美多芭（250mg）', 'unit' => ''),
+        '2' => array('name' => '息宁（250mg）', 'unit' => 'g/L'),
+        '3' => array('name' => '森福罗（0.25mg）', 'unit' => '*1012/L'),
+        '4' => array('name' => '森福罗（1mg）', 'unit' => 'mmol/L'),
+        '5' => array('name' => '泰舒达（50mg）', 'unit' => 'mmol/L'),
+        '6' => array('name' => '珂丹（200mg）', 'unit' => 'mmol/L'),
+        '7' => array('name' => '金刚烷胺（100mg）', 'unit' => 'mmol/L'),
+        '8' => array('name' => '金思平（5mg）', 'unit' => 'mmol/L'),
+        '9' => array('name' => '安坦（2mg）', 'unit' => 'ng/ml'),
+        '10' => array('name' => '咪多秕（2mg）', 'unit' => 'pg/ml'),
+        '11' => array('name' => '罗匹尼罗', 'unit' => ' ng/ml'),
+        '12' => array('name' => '雷沙吉兰', 'unit' => 'mmol/L'),
+        '13' => array('name' => '多奈哌齐', 'unit' => 'mmol/L'),
+        '14' => array('name' => '美金刚', 'unit' => 'mmol/L'),
+        '15' => array('name' => '艾斯能', 'unit' => 'U/L'),
+        'other' => array('name' => '其他抗PD药物', 'unit' => 'U/L'),
+    );
+
+    //设置表头
+    $one = array(
+        '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
+    );
+    foreach ($items_list as $key => $val) {
+        if($key="other"){
+        }else{
+        }
+        $one[] = "第一次服用时间";
+        $one[] = "开始剂量mg";
+        $one[] = "是否有效";
+        $one[] = "不良反应";
+        $one[] = "是否继续服用";
+        $one[] = "服用剂量";
+        $one[] = "停药时间";
+        $one[] = "停药原因";
+    }
+    $cellTitle = $one;
+    $model = Db::name('user_drug_history');
+    $dataList = $model->alias('a')
+        ->where(array('user_id' => array('in', $user_ids)))
+        ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
+    $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
+
+    $item_text1 = array('1' => ' 是 ', '2' => "否");
+    $item_text2 = array('1' => ' 有 ', '2' => "无");
+    //拼装数据
+    $celldata = [];
+    foreach ($dataList as $val) {
+        $two = [];
+        $user = $userList[$val['user_id']];
+        $visit = $visitList[$val['visit_id']];
+        $two[] = $user['user_nickname'];
+        $two[] = $user['user_code'];
+        $two[] = date("Y-m-d", $user['birthday']);
+        $two[] = $sex_text[$user['sex']];
+        $two[] = $user['age'];
+        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
+        $items = unserialize($val['items']);
+        foreach ($items_list as $key => $vv) {
+            if($key=="other"){
+
+            }else{
+
+            }
+
+            $two[] =$items[$key][1];
+            $two[] =$items[$key][2];
+            $two[] =$item_text1[$items[$key][3]];
+            $two[] =$item_text2[$items[$key][4]];
+            $two[] =$item_text1[$items[$key][5]];
+            $two[] =$items[$key][6];
+            $two[] =$items[$key][7];
+            $two[] =$items[$key]['remark'];
+        }
+        $celldata[] = $two;
+    }
+    //合并单元格设置
+    $cellMerge = array(
+        array('title' => '患者信息', 'start' => "A1", 'end' => 'G1'),
+        array('title' => '美多芭（250mg）', 'start' => "H1", 'end' => 'O1'),
+        array('title' => '息宁（250mg）', 'start' => "P1", 'end' => 'W1'),
+        array('title' => '森福罗（0.25mg）', 'start' => "X1", 'end' => 'AE1'),
+        array('title' => '森福罗（1mg）', 'start' => "AF1", 'end' => 'AM1'),
+        array('title' => '泰舒达（50mg）', 'start' => "AN1", 'end' => 'AU1'),
+        array('title' => '柯丹（200mg）', 'start' => "AV1", 'end' => 'BC1'),
+        array('title' => '金刚烷胺（100mg）', 'start' => "BD1", 'end' => 'BK1'),
+        array('title' => '金思平（5mg）', 'start' => "BL1", 'end' => 'BS1'),
+        array('title' => '安坦（2mg）', 'start' => "BT1", 'end' => 'CA1'),
+        array('title' => '咪多吡（2mg）', 'start' => "CB1", 'end' => 'CI1'),
+        array('title' => '罗匹尼罗', 'start' => "CJ1", 'end' => 'CQ1'),
+        array('title' => '雷沙吉兰', 'start' => "CR1", 'end' => 'CY1'),
+        array('title' => '多奈哌齐', 'start' => "CZ1", 'end' => 'DG1'),
+        array('title' => '美金刚', 'start' => "DH1", 'end' => 'DO1'),
+        array('title' => '艾斯能', 'start' => "DP1", 'end' => 'DW1'),
+        array('title' => '其他抗PD药物', 'start' => "DX1", 'end' => 'EE1'),
+    );
+    //设置工作区标题
+    $sheetName = "用药史";
+
+    return array(
+        'sheetName' => $sheetName,
+        'cellMerge' => $cellMerge,
+        'cellTitle' => $cellTitle,
+        'celldata' => $celldata,
+    );
+}
+
+function get_center_diagnose($userList = array(), $visitList = array(), $user_ids = array())
+{
+    $items_list1 = array(
+        'pd_o' => array('name' => '帕金森病（PD）', 'key' => ''),
+        'o12' => array('name' => 'Hoehn-Yahr', 'key' => ''),
+        'pds_o' => array('name' => '继发性帕金森综合征 ', 'key' => ''),
+        'o22' => array('name' => '感染', 'key' => ''),
+        '5' => array('name' => '中毒 ', 'key' => ''),
+        '6' => array('name' => '药物', 'key' => ''),
+        '7' => array('name' => '动脉硬化', 'key' => ''),
+        '8' => array('name' => '脑外伤', 'key' => ''),
+        '8' => array('name' => '其他', 'key' => ''),
+        '8' => array('name' => '遗传代谢性相关PD（HPDS）', 'key' => ''),
+        '8' => array('name' => 'MSA', 'key' => ''),
+        '8' => array('name' => 'PSP', 'key' => ''),
+        '8' => array('name' => 'CBD/CBS', 'key' => ''),
+        '8' => array('name' => 'DLB', 'key' => ''),
+        '8' => array('name' => '不典型帕金森综合征', 'key' => ''),
+    );
+    $items_list2 = array(
+        'pd_o' => array('name' => '帕金森病（PD）', 'key' => ''),
+        'o12' => array('name' => 'Hoehn-Yahr', 'key' => ''),
+        'pds_o' => array('name' => '继发性帕金森综合征 ', 'key' => ''),
+        'o22' => array('name' => '感染', 'key' => ''),
+        '5' => array('name' => '中毒 ', 'key' => ''),
+        '6' => array('name' => '药物', 'key' => ''),
+        '7' => array('name' => '动脉硬化', 'key' => ''),
+        '8' => array('name' => '脑外伤', 'key' => ''),
+        '8' => array('name' => '其他', 'key' => ''),
+        '8' => array('name' => '遗传代谢性相关PD（HPDS）', 'key' => ''),
+        '8' => array('name' => 'MSA', 'key' => ''),
+        '8' => array('name' => 'PSP', 'key' => ''),
+        '8' => array('name' => 'CBD/CBS', 'key' => ''),
+        '8' => array('name' => 'DLB', 'key' => ''),
+        '8' => array('name' => '不典型帕金森综合征', 'key' => ''),
+    );
+
+    //设置表头
+    $one = array(
+        '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
+    );
+    foreach ($items_list1 as $key => $val) {
+        $one[] = $key.".".$val['name'];
+    }
+    $one[] = "评分";
+    $one[] = "备注";
+    $cellTitle = $one;
+
+    $model = Db::name('user_center_diagnose');
+    $dataList = $model->alias('a')
+        ->where(array('user_id' => array('in', $user_ids)))
+        ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
+    $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
+
+    $item_text = array('1' => '√');
+    //拼装数据
+    $celldata = [];
+    foreach ($dataList as $val) {
+        $two = [];
+        $user = $userList[$val['user_id']];
+        $visit = $visitList[$val['visit_id']];
+        $two[] = $user['user_nickname'];
+        $two[] = $user['user_code'];
+        $two[] = date("Y-m-d", $user['birthday']);
+        $two[] = $sex_text[$user['sex']];
+        $two[] = $user['age'];
+        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
+        $items = unserialize($val['items']);
+        $items = $items['ess'];
+        foreach ($items_list1 as $key => $vv) {
+            $two[] = $item_text[$items[$key]];
+        }
+        $two[] = $val['score'];
+        $two[] = $val['remark'];
+        $celldata[] = $two;
+    }
+    //合并单元格设置
+    $cellMerge = array(
+        array('title' => '患者信息', 'start' => "A1", 'end' => 'G1'),
+        array('title' => '初步诊断', 'start' => "H1", 'end' => 'W1'),
+        array('title' => '修正诊断', 'start' => "X1", 'end' => 'AM1'),
+    );
+    //设置工作区标题
+    $sheetName = "中心名称及诊断";
+
+    return array(
+        'sheetName' => $sheetName,
+        'cellMerge' => $cellMerge,
+        'cellTitle' => $cellTitle,
+        'celldata' => $celldata,
+    );
+}
+
+
+
 
 
 function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_ids = array())

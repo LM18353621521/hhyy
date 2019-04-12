@@ -31,7 +31,7 @@
     </ul>
     <br>
     <table class="table table-hover table-bordered table-list">
-        <thead>
+        <titems>
         <tr>
             <th width="200">姓名：{$user.user_nickname}</th>
             <th width="120">编号：{$user.user_code}</th>
@@ -39,7 +39,7 @@
             <th width="100">年龄：{$user.age}</th>
             <th></th>
         </tr>
-        </thead>
+        </titems>
     </table>
     <br>
     <ul class="nav nav-tabs" style="display: inline-block;">
@@ -63,12 +63,12 @@
                         <tr>
                             <th rowspan="2">头部CT<span class="form-required"></span></th>
                             <td rowspan="2">
-                                <input type="radio" name="head[ct][has]" value="1"  <eq name="data[head][ct][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="head[ct][has]" value="2" <eq name="data[head][ct][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[ct][has]" value="1"  <eq name="data[items][ct][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[ct][has]" value="2" <eq name="data[items][ct][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td>
                                 检查日期：
-                                <input class="form-control" type="text" name="head[ct][date]" id="ct_date"  value="{$data[head][ct][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[ct][date]" id="ct_date"  value="{$data[items][ct][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -80,21 +80,21 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="radio" name="head[ct][status]" value="1" <eq name="data[head][ct][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="head[ct][status]" value="2" <eq name="data[head][ct][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[ct][status]" value="1" <eq name="data[items][ct][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[ct][status]" value="2" <eq name="data[items][ct][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                                 说明：
-                                <input class="form-control w_60" type="text" name="head[ct][desc]" value="{$data[head][ct][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[ct][desc]" value="{$data[items][ct][desc]}" placeholder=""/>
                             </td>
                         </tr>
                         <tr>
                             <th rowspan="2">头部MRI<span class="form-required"></span></th>
                             <td rowspan="2">
-                                <input type="radio" name="head[mri][has]" value="1"  <eq name="data[head][mri][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="head[mri][has]" value="2" <eq name="data[head][mri][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[mri][has]" value="1"  <eq name="data[items][mri][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[mri][has]" value="2" <eq name="data[items][mri][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td>
                                 检查日期：
-                                <input class="form-control" type="text" name="head[mri][date]" id="mri_date"  value="{$data[head][mri][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[mri][date]" id="mri_date"  value="{$data[items][mri][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -106,22 +106,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="radio" name="head[mri][status]" value="1" <eq name="data[head][mri][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="head[mri][status]" value="2" <eq name="data[head][mri][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[mri][status]" value="1" <eq name="data[items][mri][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[mri][status]" value="2" <eq name="data[items][mri][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                                 说明：
-                                <input class="form-control w_60" type="text" name="head[ct][desc]" value="{$data[head][ct][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[ct][desc]" value="{$data[items][ct][desc]}" placeholder=""/>
                             </td>
                         </tr>
 
                         <tr>
                             <th rowspan="5">头部SPECT<span class="form-required"></span></th>
                             <td rowspan="5">
-                                <input type="radio" name="head[spect][has]" value="1"  <eq name="data[head][spect][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="head[spect][has]" value="2" <eq name="data[head][spect][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][has]" value="1"  <eq name="data[items][spect][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][has]" value="2" <eq name="data[items][spect][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td colspan="2">
                                 检查日期：
-                                <input class="form-control" type="text" name="head[spect][date]" id="spect_date"  value="{$data[head][spect][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[spect][date]" id="spect_date"  value="{$data[items][spect][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -133,28 +133,28 @@
                         </tr>
                         <tr>
                             <td rowspan="4">
-                                <input type="radio" name="head[spect][status]" value="1" <eq name="data[head][spect][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="head[spect][status]" value="2" <eq name="data[head][spect][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][status]" value="1" <eq name="data[items][spect][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][status]" value="2" <eq name="data[items][spect][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否显示基底节区多巴胺转运体摄取减少：
-                                <input type="radio" name="head[spect][res1]" value="1" <eq name="data[head][spect][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="head[spect][res1]" value="2" <eq name="data[head][spect][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][res1]" value="1" <eq name="data[items][spect][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][res1]" value="2" <eq name="data[items][spect][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否提示普遍低摄取，伴枕叶代谢下降：
-                                <input type="radio" name="head[spect][res2]" value="1" <eq name="data[head][spect][res2]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="head[spect][res2]" value="2" <eq name="data[head][spect][res2]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][res2]" value="1" <eq name="data[items][spect][res2]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[spect][res2]" value="2" <eq name="data[items][spect][res2]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 其他：
-                                <input class="form-control w_60" type="text" name="head[spect][desc]" value="{$data[head][spect][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[spect][desc]" value="{$data[items][spect][desc]}" placeholder=""/>
                             </td>
                         </tr>
 
@@ -163,12 +163,12 @@
                         <tr>
                             <th rowspan="5">头部PET<span class="form-required"></span></th>
                             <td rowspan="5">
-                                <input type="radio" name="head[pet][has]" value="1"  <eq name="data[head][pet][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="head[pet][has]" value="2" <eq name="data[head][pet][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][has]" value="1"  <eq name="data[items][pet][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][has]" value="2" <eq name="data[items][pet][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td colspan="2">
                                 检查日期：
-                                <input class="form-control" type="text" name="head[pet][date]" id="pet_date"  value="{$data[head][pet][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[pet][date]" id="pet_date"  value="{$data[items][pet][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -180,28 +180,28 @@
                         </tr>
                         <tr>
                             <td rowspan="4">
-                                <input type="radio" name="head[pet][status]" value="1" <eq name="data[head][pet][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="head[pet][status]" value="2" <eq name="data[head][pet][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][status]" value="1" <eq name="data[items][pet][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][status]" value="2" <eq name="data[items][pet][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否显示基底节区多巴胺转运体摄取减少：
-                                <input type="radio" name="head[pet][res1]" value="1" <eq name="data[head][pet][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="head[pet][res1]" value="2" <eq name="data[head][spect][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][res1]" value="1" <eq name="data[items][pet][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][res1]" value="2" <eq name="data[items][spect][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否提示普遍低摄取，伴枕叶代谢下降：
-                                <input type="radio" name="head[pet][res2]" value="1" <eq name="data[head][pet][res2]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="head[pet][res2]" value="2" <eq name="data[head][pet][res2]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][res2]" value="1" <eq name="data[items][pet][res2]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[pet][res2]" value="2" <eq name="data[items][pet][res2]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 其他：
-                                <input class="form-control w_60" type="text" name="head[pet][desc]" value="{$data[head][pet][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[pet][desc]" value="{$data[items][pet][desc]}" placeholder=""/>
                             </td>
                         </tr>
 
@@ -209,12 +209,12 @@
                         <tr>
                             <th rowspan="4">多导睡眠监测<span class="form-required"></span></th>
                             <td rowspan="4">
-                                <input type="radio" name="sleep[has]" value="1"  <eq name="data[sleep][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="sleep[has]" value="2" <eq name="data[sleep][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][has]" value="1"  <eq name="data[items][sleep][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][has]" value="2" <eq name="data[items][sleep][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td colspan="2">
                                 检查日期：
-                                <input class="form-control" type="text" name="sleep[date]" id="sleep_date"  value="{$data[sleep][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[sleep][date]" id="sleep_date"  value="{$data[items][sleep][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -226,33 +226,33 @@
                         </tr>
                         <tr>
                             <td rowspan="3">
-                                <input type="radio" name="sleep[status]" value="1" <eq name="data[sleep][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="sleep[status]" value="2" <eq name="data[sleep][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][status]" value="1" <eq name="data[items][sleep][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][status]" value="2" <eq name="data[items][sleep][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否证实快速动眼期肌肉迟缓消失：
-                                <input type="radio" name="sleep[res1]" value="1" <eq name="data[sleep][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="sleep[res1]" value="2" <eq name="data[sleep][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][res1]" value="1" <eq name="data[items][sleep][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[sleep][res1]" value="2" <eq name="data[items][sleep][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 其他：
-                                <input class="form-control w_60" type="text" name="sleep[desc]" value="{$data[sleep][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[sleep][desc]" value="{$data[items][sleep][desc]}" placeholder=""/>
                             </td>
                         </tr>
 
                         <tr>
                             <th rowspan="4">脑电图<span class="form-required"></span></th>
                             <td rowspan="4">
-                                <input type="radio" name="eeg[has]" value="1"  <eq name="data[eeg][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="eeg[has]" value="2" <eq name="data[eeg][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][has]" value="1"  <eq name="data[items][eeg][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][has]" value="2" <eq name="data[items][eeg][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td colspan="2">
                                 检查日期：
-                                <input class="form-control" type="text" name="eeg[date]" id="eeg_date"  value="{$data[eeg][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[eeg][date]" id="eeg_date"  value="{$data[items][eeg][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -264,21 +264,21 @@
                         </tr>
                         <tr>
                             <td rowspan="3">
-                                <input type="radio" name="eeg[status]" value="1" <eq name="data[eeg][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="eeg[status]" value="2" <eq name="data[eeg][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][status]" value="1" <eq name="data[items][eeg][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][status]" value="2" <eq name="data[items][eeg][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 是否提示慢波，颞叶出现短暂尖波：
-                                <input type="radio" name="eeg[res1]" value="1" <eq name="data[eeg][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="eeg[res1]" value="2" <eq name="data[eeg][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][res1]" value="1" <eq name="data[items][eeg][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[eeg][res1]" value="2" <eq name="data[items][eeg][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 其他：
-                                <input class="form-control w_60" type="text" name="eeg[desc]" value="{$data[eeg][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[eeg][desc]" value="{$data[items][eeg][desc]}" placeholder=""/>
                             </td>
                         </tr>
 
@@ -286,12 +286,12 @@
                         <tr>
                             <th rowspan="4">心肌造影<span class="form-required"></span></th>
                             <td rowspan="4">
-                                <input type="radio" name="cardiokymography[has]" value="1"  <eq name="data[cardiokymography][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
-                                <input type="radio" name="cardiokymography[has]" value="2" <eq name="data[cardiokymography][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][has]" value="1"  <eq name="data[items][cardiokymography][has]" value="1">checked</eq>>有 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][has]" value="2" <eq name="data[items][cardiokymography][has]" value="2">checked</eq>>无 &nbsp;&nbsp;
                             </td>
                             <td colspan="2">
                                 检查日期：
-                                <input class="form-control" type="text" name="cardiokymography[date]" id="cardiokymography_date"  value="{$data[cardiokymography][date]}" placeholder=""/>
+                                <input class="form-control" type="text" name="items[cardiokymography][date]" id="cardiokymography_date"  value="{$data[items][cardiokymography][date]}" placeholder=""/>
                                 <script>
                                     //执行一个laydate实例
                                     laydate.render({
@@ -303,21 +303,21 @@
                         </tr>
                         <tr>
                             <td rowspan="3">
-                                <input type="radio" name="cardiokymography[status]" value="1" <eq name="data[cardiokymography][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="cardiokymography[status]" value="2" <eq name="data[cardiokymography][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][status]" value="1" <eq name="data[items][cardiokymography][status]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][status]" value="2" <eq name="data[items][cardiokymography][status]" value="2">checked</eq>>异常 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 123I-MIBG摄取减少：
-                                <input type="radio" name="cardiokymography[res1]" value="1" <eq name="data[cardiokymography][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
-                                <input type="radio" name="cardiokymography[res1]" value="2" <eq name="data[cardiokymography][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][res1]" value="1" <eq name="data[items][cardiokymography][res1]" value="1">checked</eq>>是 &nbsp;&nbsp;
+                                <input type="radio" name="items[cardiokymography][res1]" value="2" <eq name="data[items][cardiokymography][res1]" value="2">checked</eq>>否 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td >
                                 其他：
-                                <input class="form-control w_60" type="text" name="cardiokymography[desc]" value="{$data[cardiokymography][desc]}" placeholder=""/>
+                                <input class="form-control w_60" type="text" name="items[cardiokymography][desc]" value="{$data[items][cardiokymography][desc]}" placeholder=""/>
                             </td>
                         </tr>
 

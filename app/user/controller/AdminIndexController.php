@@ -174,6 +174,15 @@ class AdminIndexController extends AdminBaseController
         $cellTitle = [];
         $celldata = [];
 
+
+
+        $allDta['assay_check'] = get_assay_check($userList, $visitList, $user_ids);
+
+        $allDta['drug_history'] = get_drug_history($userList, $visitList, $user_ids);
+
+        $allDta['center_diagnose'] = get_center_diagnose($userList, $visitList, $user_ids);
+
+
         $allDta['mds_updrs'] = get_scale_mds_updrs($userList, $visitList, $user_ids);
         $allDta['npi'] = get_scale_npi($userList, $visitList, $user_ids);
         $allDta['sc_en'] = get_scale_sc_en($userList, $visitList, $user_ids);
@@ -199,7 +208,7 @@ class AdminIndexController extends AdminBaseController
             $celldata[] = $val['celldata'];
         }
 //        dump($sheetName);
-//        die();
+        die();
 
         $this->export_do('帕金森系统', $sheetName, $cellMerge, $cellTitle, $celldata);
 

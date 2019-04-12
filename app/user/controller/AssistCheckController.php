@@ -135,11 +135,8 @@ class AssistCheckController extends AdminBaseController
         $model = Db::name('user_assist_check');
         $id = $this->request->param('id', 0, 'intval');
         $data = $model->find($id);
-
-        $data['head'] = unserialize($data['head']);
-        $data['sleep'] = unserialize($data['sleep']);
-        $data['eeg'] = unserialize($data['eeg']);
-        $data['cardiokymography'] = unserialize($data['cardiokymography']);
+        $data['items'] = unserialize($data['items']);
+//        $data['cardiokymography'] = unserialize($data['cardiokymography']);
 
         $this->assign('data', $data);
         return $this->fetch();
