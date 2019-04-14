@@ -160,6 +160,8 @@ class AdminIndexController extends AdminBaseController
 
     public function export()
     {
+        ini_set('memory_limit','1024M');// 临时设置最大内存占用为3G　
+        set_time_limit(300);// 设置脚本最大执行时间 为0 永不过期
         //搜索条件
         $where = session('where_user_index');
         $userList = Db::name('user')->where($where)->order('id asc')->column("*");
@@ -174,33 +176,32 @@ class AdminIndexController extends AdminBaseController
         $cellTitle = [];
         $celldata = [];
 
-
-
+        $allDta['user_info'] = get_user_info($userList, $visitList, $user_ids);
+        $allDta['medical_history'] = get_medical_history($userList, $visitList, $user_ids);
+        $allDta['major_medical'] = get_major_medical($userList, $visitList, $user_ids);
+        $allDta['body_check'] = get_body_check($userList, $visitList, $user_ids);
+        $allDta['assist_check'] = get_assist_check($userList, $visitList, $user_ids);
         $allDta['assay_check'] = get_assay_check($userList, $visitList, $user_ids);
-
         $allDta['drug_history'] = get_drug_history($userList, $visitList, $user_ids);
-
         $allDta['center_diagnose'] = get_center_diagnose($userList, $visitList, $user_ids);
-
-
         $allDta['mds_updrs'] = get_scale_mds_updrs($userList, $visitList, $user_ids);
-        $allDta['npi'] = get_scale_npi($userList, $visitList, $user_ids);
         $allDta['sc_en'] = get_scale_sc_en($userList, $visitList, $user_ids);
         $allDta['nmss'] = get_scale_nmss($userList, $visitList, $user_ids);
         $allDta['mmse'] = get_scale_mmse($userList, $visitList, $user_ids);
         $allDta['moca'] = get_scale_moca($userList, $visitList, $user_ids);
-        $allDta['hamd'] = get_scale_hamd($userList, $visitList, $user_ids);
-        $allDta['hama'] = get_scale_hama($userList, $visitList, $user_ids);
-        $allDta['maes'] = get_scale_maes($userList, $visitList, $user_ids);
-        $allDta['psqi'] = get_scale_psqi($userList, $visitList, $user_ids);
-        $allDta['ess'] = get_scale_ess($userList, $visitList, $user_ids);
-        $allDta['fai'] = get_scale_fai($userList, $visitList, $user_ids);
-        $allDta['pdql'] = get_scale_pdql($userList, $visitList, $user_ids);
-        $allDta['adl'] = get_scale_adl($userList, $visitList, $user_ids);
-        $allDta['dlb'] = get_scale_dlb($userList, $visitList, $user_ids);
-        $allDta['frozen'] = get_scale_frozen($userList, $visitList, $user_ids);
-        $allDta['stroop'] = get_scale_stroop($userList, $visitList, $user_ids);
-        $allDta['wais'] = get_scale_wais($userList, $visitList, $user_ids);
+//        $allDta['hamd'] = get_scale_hamd($userList, $visitList, $user_ids);
+//        $allDta['hama'] = get_scale_hama($userList, $visitList, $user_ids);
+//        $allDta['maes'] = get_scale_maes($userList, $visitList, $user_ids);
+//        $allDta['psqi'] = get_scale_psqi($userList, $visitList, $user_ids);
+//        $allDta['ess'] = get_scale_ess($userList, $visitList, $user_ids);
+//        $allDta['fai'] = get_scale_fai($userList, $visitList, $user_ids);
+//        $allDta['npi'] = get_scale_npi($userList, $visitList, $user_ids);
+//        $allDta['pdql'] = get_scale_pdql($userList, $visitList, $user_ids);
+//        $allDta['adl'] = get_scale_adl($userList, $visitList, $user_ids);
+//        $allDta['dlb'] = get_scale_dlb($userList, $visitList, $user_ids);
+//        $allDta['frozen'] = get_scale_frozen($userList, $visitList, $user_ids);
+//        $allDta['stroop'] = get_scale_stroop($userList, $visitList, $user_ids);
+//        $allDta['wais'] = get_scale_wais($userList, $visitList, $user_ids);
         foreach ($allDta as $val) {
             $sheetName[] = $val['sheetName'];
             $cellMerge[] = $val['cellMerge'];
@@ -208,7 +209,7 @@ class AdminIndexController extends AdminBaseController
             $celldata[] = $val['celldata'];
         }
 //        dump($sheetName);
-        die();
+//        die();
 
         $this->export_do('帕金森系统', $sheetName, $cellMerge, $cellTitle, $celldata);
 
@@ -229,7 +230,7 @@ class AdminIndexController extends AdminBaseController
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
         );
-        $cellKey1 = array('A', 'B', 'C', 'D');
+        $cellKey1 = array('A', 'B', 'C', 'D', 'E');
         foreach ($cellKey1 as $kc) {
             foreach ($cellKey2 as $kcs) {
                 echo $kcs;
@@ -261,7 +262,7 @@ class AdminIndexController extends AdminBaseController
             //处理表头
             foreach ($cellTitle[$i] as $k => $v) {
                 $objPHPExcel->setActiveSheetIndex($i)->setCellValue($cellKey[$k] . $topNumber, $v);//设置表头数据
-               echo $k."-".$v."<br>";
+                echo $k . "-" . $v . "<br>";
 
             }
             //处理数据
@@ -439,7 +440,7 @@ class AdminIndexController extends AdminBaseController
                 $res = Db::name('user_info')->where(array('user_id' => $data['id']))->update($user_info);
                 $msg = "编辑成功";
             }
-            $this->success($msg, url('AdminIndex/index', ['id' => $res]));
+            $this->success($msg, url('AdminIndex/index'));
         }
     }
 
@@ -461,7 +462,6 @@ class AdminIndexController extends AdminBaseController
         $user_info['special_poison'] = unserialize($user_info['special_poison']);
         $user_info['vital_sign'] = unserialize($user_info['vital_sign']);
         $user_info['family'] = unserialize($user_info['family']);
-
         $poisonList = array(
             'poison0' => '奋乃静',
             'poison1' => '盐酸硫利哒嗪',
@@ -647,6 +647,8 @@ class AdminIndexController extends AdminBaseController
     public function del_data_list($user_id, $type)
     {
         $table_list1 = array(
+            'user_info',
+            'user_visit',
             'user_assay_check',
             'user_assist_check',
             'user_body_check',

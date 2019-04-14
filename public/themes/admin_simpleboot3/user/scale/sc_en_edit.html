@@ -60,9 +60,8 @@
                         <foreach name="items_list" item="vo" key="k">
                             <tr>
                                 <th width="30">
-                                    {$k}%
-                                    &nbsp;&nbsp;
-                                <input type="radio" class="redio_sel" name="items[sc][$k]"  value="1"  score="{$k}"  <eq name="data[items][sc][$k]" value="1">checked</eq>  > &nbsp;&nbsp;
+                                    {$k}%                                    &nbsp;&nbsp;
+                                <input type="radio" class="redio_sel" name="items[sc][radio]"  value="{$k}"  score="{$k}"  <eq name="data[items][sc][radio]" value="$k">checked</eq>  > &nbsp;&nbsp;
                                 </th>
                                 <th width="180">
                                     {$vo.name}

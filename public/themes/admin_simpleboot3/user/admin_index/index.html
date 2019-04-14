@@ -4,7 +4,7 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="javascript:;">患者1列表</a></li>
+        <li class="active"><a href="javascript:;">患者列表</a></li>
         <li><a href="{:url('AdminIndex/add')}">添加患者</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
@@ -86,7 +86,7 @@
                     <td>{$vo['user_nickname']?$vo['user_nickname']:lang('NOT_FILLED')}</td>
                     <!--<td><img width="25" height="25" src="{:url('user/public/avatar',array('id'=>$vo['id']))}"/></td>-->
                     <td><if condition="$vo.sex  eq 1">男<else/>女</if></td>
-                    <td>{:date('Y-m-d H:i:s',$vo['birthday'])}</td>
+                    <td>{:date('Y-m-d',$vo['birthday'])}</td>
                     <td>{$vo.age}</td>
                     <td>{$vo.mobile}</td>
                     <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
