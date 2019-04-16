@@ -135,7 +135,7 @@ class DrugHistoryController extends AdminBaseController
             }else{
                 $res = $model->where(array('id'=>$data['id']))->update($data);
                 adminLog("编辑用药史(ID:".$data['id'].")");
-                $this->success('编辑成功!', url('DrugHistory/index', ['id' => $res]));
+                $this->success('编辑成功!', url('DrugHistory/index', ['user_id' => $data['user_id']]));
             }
         }
 

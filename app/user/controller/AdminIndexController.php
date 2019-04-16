@@ -189,19 +189,19 @@ class AdminIndexController extends AdminBaseController
         $allDta['nmss'] = get_scale_nmss($userList, $visitList, $user_ids);
         $allDta['mmse'] = get_scale_mmse($userList, $visitList, $user_ids);
         $allDta['moca'] = get_scale_moca($userList, $visitList, $user_ids);
-//        $allDta['hamd'] = get_scale_hamd($userList, $visitList, $user_ids);
-//        $allDta['hama'] = get_scale_hama($userList, $visitList, $user_ids);
-//        $allDta['maes'] = get_scale_maes($userList, $visitList, $user_ids);
-//        $allDta['psqi'] = get_scale_psqi($userList, $visitList, $user_ids);
-//        $allDta['ess'] = get_scale_ess($userList, $visitList, $user_ids);
-//        $allDta['fai'] = get_scale_fai($userList, $visitList, $user_ids);
-//        $allDta['npi'] = get_scale_npi($userList, $visitList, $user_ids);
-//        $allDta['pdql'] = get_scale_pdql($userList, $visitList, $user_ids);
-//        $allDta['adl'] = get_scale_adl($userList, $visitList, $user_ids);
-//        $allDta['dlb'] = get_scale_dlb($userList, $visitList, $user_ids);
-//        $allDta['frozen'] = get_scale_frozen($userList, $visitList, $user_ids);
-//        $allDta['stroop'] = get_scale_stroop($userList, $visitList, $user_ids);
-//        $allDta['wais'] = get_scale_wais($userList, $visitList, $user_ids);
+        $allDta['hamd'] = get_scale_hamd($userList, $visitList, $user_ids);
+        $allDta['hama'] = get_scale_hama($userList, $visitList, $user_ids);
+        $allDta['maes'] = get_scale_maes($userList, $visitList, $user_ids);
+        $allDta['psqi'] = get_scale_psqi($userList, $visitList, $user_ids);
+        $allDta['ess'] = get_scale_ess($userList, $visitList, $user_ids);
+        $allDta['fai'] = get_scale_fai($userList, $visitList, $user_ids);
+        $allDta['npi'] = get_scale_npi($userList, $visitList, $user_ids);
+        $allDta['pdql'] = get_scale_pdql($userList, $visitList, $user_ids);
+        $allDta['adl'] = get_scale_adl($userList, $visitList, $user_ids);
+        $allDta['dlb'] = get_scale_dlb($userList, $visitList, $user_ids);
+        $allDta['frozen'] = get_scale_frozen($userList, $visitList, $user_ids);
+        $allDta['stroop'] = get_scale_stroop($userList, $visitList, $user_ids);
+        $allDta['wais'] = get_scale_wais($userList, $visitList, $user_ids);
         foreach ($allDta as $val) {
             $sheetName[] = $val['sheetName'];
             $cellMerge[] = $val['cellMerge'];
@@ -418,10 +418,12 @@ class AdminIndexController extends AdminBaseController
             $data['bind_admin_id'] = session('ADMIN_ID');
             $data['user_type'] = 2;
             $data['birthday'] = strtotime($data['birthday']);
+
             if (!$data['id']) {
                 $data['create_time'] = time();
                 $res = Db::name('user')->insertGetId($data);
                 foreach ($user_info as &$val) {
+                    dump($val);
                     if (is_array($val)) {
                         $val = serialize($val);
                     }

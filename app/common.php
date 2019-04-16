@@ -70,6 +70,7 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
         'poison9' => '锂剂',
         'poison10' => '氟桂利嗪',
         'poison11' => '桂利嗪',
+        'sp_other' => '其他',
     );
 
     //设置表头
@@ -86,7 +87,7 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
                 break;
             case 'drink_wine':
                 $one[] = "酒龄 ";
-                $one[] = "戒烟时间 ";
+                $one[] = "戒酒时间 ";
                 break;
             case 'drink_coffee':
                 $one[] = "时间 ";
@@ -160,7 +161,7 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = date("Y-m-d", $user['birthday']);
             $two[] = $sex_text[$user['sex']];
             $two[] = $user['age'];
-            $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+            $two[] = empty($visit) ? date('Y-m-d H:i:s', $user['create_time']) : date('Y-m-d  H:i:s', $visit['visit_time']);
             $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
 
             $user_info['country'] = unserialize($val['country']);
@@ -184,8 +185,8 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = $val['email'];
 
             //职业
-            if ($val['occupation']['radio'] == 8) {
-                $two[] = $item_text2[$user_info['occupation']['radio']] . ":" . $user_info['occupation']['other'];
+            if ($user_info['occupation']['radio'] == 8) {
+                $two[] = $user_info['occupation']['other'];
             } else {
                 $two[] = $item_text2[$user_info['occupation']['radio']];
             }
@@ -194,8 +195,8 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = $item_text4[$val['econom']];
 
             //居住
-            if ($val['occupation']['radio'] == 4) {
-                $two[] = $item_text5[$user_info['live_status']['radio']] . ":" . $user_info['live_status']['other'];
+            if ($user_info['live_status']['radio'] == 4) {
+                $two[] = $user_info['live_status']['other'];
             } else {
                 $two[] = $item_text5[$user_info['live_status']['radio']];
             }
@@ -259,9 +260,8 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = date("Y-m-d", $user['birthday']);
             $two[] = $sex_text[$user['sex']];
             $two[] = $user['age'];
-            $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+            $two[] = empty($visit) ? date('Y-m-d  H:i:s', $val['create_time']) : date('Y-m-d  H:i:s', $visit['visit_time']);
             $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
-
             $user_info['country'] = unserialize($val['country']);
             $user_info['occupation'] = unserialize($val['occupation']);
             $user_info['live_status'] = unserialize($val['live_status']);
@@ -283,8 +283,8 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = $val['email'];
 
             //职业
-            if ($val['occupation']['radio'] == 8) {
-                $two[] = $item_text2[$user_info['occupation']['radio']] . ":" . $user_info['occupation']['other'];
+            if ($user_info['occupation']['radio'] == 8) {
+                $two[] = $user_info['occupation']['other'];
             } else {
                 $two[] = $item_text2[$user_info['occupation']['radio']];
             }
@@ -293,8 +293,8 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
             $two[] = $item_text4[$val['econom']];
 
             //居住
-            if ($val['occupation']['radio'] == 4) {
-                $two[] = $item_text5[$user_info['live_status']['radio']] . ":" . $user_info['live_status']['other'];
+            if ($user_info['live_status']['radio'] == 4) {
+                $two[] =  $user_info['live_status']['other'];
             } else {
                 $two[] = $item_text5[$user_info['live_status']['radio']];
             }
@@ -389,7 +389,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
     );
     foreach ($items_list as $key => $val) {
         $one[] = $val['name'];
-        if ($key != 10) {
+        if ($key != '3'&&$key != '10') {
             $one[] = "开始年龄(岁)";
         }
         switch ($key) {
@@ -404,6 +404,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
                 break;
             case 3:
                 $one[] = "种类 ";
+                $one[] = "开始年龄(岁)";
                 $one[] = "服药种类 ";
                 $one[] = "服药时长 ";
                 break;
@@ -451,11 +452,11 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['content']);
         foreach ($items_list as $key => $vv) {
-            if ($key != 10) {
+            if ($key != 3&&$key != 10) {
                 $two[] = $item_text1[$items["disease" . $key]['radio']];
                 $two[] = $items["disease" . $key]['s_age'];
             }
@@ -471,6 +472,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
                     break;
                 case 3:
                     $two[] = $item_text3[$items["disease" . $key]['type']];
+                    $two[] = $items["disease" . $key]['s_age'];
                     $two[] = $items["disease" . $key]['drug_type'];
                     $two[] = $items["disease" . $key]['drug_year'];
                     break;
@@ -560,6 +562,8 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
             $one[] = "出现年龄";
             $one[] = "运动性震颤";
             $one[] = "部位";
+            $one[] = "出现年龄";
+        } elseif ($key == 2) {
             $one[] = "出现年龄";
         } elseif ($key == '4') {
             $one[] = "主要部位";
@@ -725,7 +729,7 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
 
@@ -948,7 +952,7 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
     $item_text8 = array('1' => "正常", '2' => "活跃 ", '3' => "减低 ", '4' => "消失");
     $item_text9 = array('未引出' => "正常", '2' => "Babinski征：左侧  ", '3' => "Babinski征：右侧   ", '4' => " Chaddock征：左侧", '5' => "Chaddock征：右侧 ");
     $item_text10 = array('1' => "阴性", '2' => "阳性 ");
-    $item_text11 = array('1' => "阴性", '2' => "减退 ");
+    $item_text11 = array('1' => "正常", '2' => "减退 ");
     $item_text12 = array('1' => "无", '2' => "左侧", '3' => "右侧");
     $item_text13 = array('1' => "前倾", '2' => "前屈", '3' => "侧弯");
     $item_text14 = array('1' => "头部", '2' => "左上肢  ", '3' => "右上肢", '4' => "左下肢", '5' => "右下肢 ");
@@ -966,7 +970,7 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items_sign = unserialize($val['sign']);
         $items_motion = unserialize($val['motion']);
@@ -1010,16 +1014,16 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
                     $two[] = $item_text10[$items_sign[$key]];
                     break;
                 case "sign12":
-                    $two[] = $item_text11[$items_sign[$key]];
+                    $two[] = $item_text10[$items_sign[$key]];
                     break;
                 case "sign13":
-                    $two[] = $item_text12[$items_sign[$key]];
+                    $two[] = $item_text11[$items_sign[$key]];
                     break;
                 case "sign14":
-                    $two[] = $item_text13[$items_sign[$key]];
+                    $two[] = $item_text12[$items_sign[$key]];
                     break;
                 case "sign15":
-                    $two[] = $item_text14[$items_sign[$key]];
+                    $two[] = $item_text13[$items_sign[$key]];
                     break;
             }
         }
@@ -1156,7 +1160,7 @@ function get_assist_check($userList = array(), $visitList = array(), $user_ids =
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         foreach ($items_list as $key => $vv) {
@@ -1171,26 +1175,26 @@ function get_assist_check($userList = array(), $visitList = array(), $user_ids =
                     $two[] = $items[$key]['desc'];
                     break;
                 case "spect":
-                    $one[] = $item_text1[$items[$key]['res1']];
-                    $one[] = $item_text1[$items[$key]['res2']];
-                    $one[] = $two[] = $items[$key]['desc'];
+                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $item_text1[$items[$key]['res2']];
+                    $two[] = $items[$key]['desc'];
                     break;
                 case "pet":
-                    $one[] = $item_text1[$items[$key]['res1']];
-                    $one[] = $item_text1[$items[$key]['res2']];
-                    $one[] = $two[] = $items[$key]['desc'];
+                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $item_text1[$items[$key]['res2']];
+                    $two[] = $items[$key]['desc'];
                     break;
                 case "sleep":
-                    $one[] = $item_text1[$items[$key]['res1']];
-                    $one[] = $two[] = $items[$key]['desc'];
+                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $items[$key]['desc'];
                     break;
                 case "eeg":
-                    $one[] = $item_text1[$items[$key]['res1']];
-                    $one[] = $two[] = $items[$key]['desc'];
+                    $two[]= $item_text1[$items[$key]['res1']];
+                    $two[]= $items[$key]['desc'];
                     break;
                 case "cardiokymography":
-                    $one[] = $item_text1[$items[$key]['res1']];
-                    $one[] = $two[] = $items[$key]['desc'];
+                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $items[$key]['desc'];
                     break;
             }
         }
@@ -1265,7 +1269,7 @@ function get_assay_check($userList = array(), $visitList = array(), $user_ids = 
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         foreach ($items_list as $key => $vv) {
@@ -1349,7 +1353,7 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         foreach ($items_list as $key => $vv) {
@@ -1452,7 +1456,7 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
 
         $items1 = unserialize($val['old_diagnose']);
@@ -1462,31 +1466,31 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $two[] = $val['pd_o'] == 1 ? "√" : "×";
         $two[] = $items1['o12'];
 
-        if($val['pds_o']==1){
-            $two[] =  "√".$items1['o22'];
-        }else{
+        if ($val['pds_o'] == 1) {
+            $two[] = "√" . $items1['o22'];
+        } else {
             $two[] = "×";
         }
 
-        foreach ($item_text as $key=>$item) {
+        foreach ($item_text as $key => $item) {
             if ($items1['o31'] == 7) {
-                if($key==7){
+                if ($key == 7) {
                     $two[] = $items1['o32'];
-                }else{
+                } else {
                     $two[] = "";
                 }
-            }else{
-                if($items1['o31']==$key){
+            } else {
+                if ($items1['o31'] == $key) {
                     $two[] = "√";
-                }else{
+                } else {
                     $two[] = "";
                 }
             }
         }
 
-        if($val['hpds_o']==1){
-            $two[] =  "√".$items1['o42'];
-        }else{
+        if ($val['hpds_o'] == 1) {
+            $two[] = "√" . $items1['o42'];
+        } else {
             $two[] = "×";
         }
 
@@ -1494,39 +1498,39 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $two[] = $val['psp_o'] == 1 ? "√" : "×";
         $two[] = $val['cbd_cbs_o'] == 1 ? "√" : "×";
         $two[] = $val['dlb_o'] == 1 ? "√" : "×";
-        if($val['n_pdo_o']==1){
-            $two[] =  "√".$items1['o92'];
-        }else{
+        if ($val['n_pdo_o'] == 1) {
+            $two[] = "√" . $items1['o92'];
+        } else {
             $two[] = "×";
         }
 
         //修正诊断
         $two[] = $val['pd_n'] == 1 ? "√" : "×";
         $two[] = $items2['n12'];
-        if($val['pds_n']==1){
-            $two[] =  "√".$items1['n22'];
-        }else{
+        if ($val['pds_n'] == 1) {
+            $two[] = "√" . $items1['n22'];
+        } else {
             $two[] = "×";
         }
-        foreach ($item_text as $key=>$item) {
+        foreach ($item_text as $key => $item) {
             if ($items1['n31'] == 7) {
-                if($key=='7'){
+                if ($key == '7') {
                     $two[] = $items1['n32'];
-                }else{
+                } else {
                     $two[] = "";
                 }
-            }else{
-                if($items1['n31']==$key){
+            } else {
+                if ($items1['n31'] == $key) {
                     $two[] = "√";
-                }else{
+                } else {
                     $two[] = "";
                 }
             }
         }
 
-        if($val['hpds_n']==1){
-            $two[] =  "√".$items1['n42'];
-        }else{
+        if ($val['hpds_n'] == 1) {
+            $two[] = "√" . $items1['n42'];
+        } else {
             $two[] = "×";
         }
 
@@ -1534,9 +1538,9 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $two[] = $val['psp_n'] == 1 ? "√" : "×";
         $two[] = $val['cbd_cbs_n'] == 1 ? "√" : "×";
         $two[] = $val['dlb_n'] == 1 ? "√" : "×";
-        if($val['n_pdo_n']==1){
-            $two[] =  "√".$items2['n92'];
-        }else{
+        if ($val['n_pdo_n'] == 1) {
+            $two[] = "√" . $items2['n92'];
+        } else {
             $two[] = "×";
         }
 
@@ -1586,7 +1590,7 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
         '7' => array('name' => '写字'),
         '8' => array('name' => '嗜好与其他活动'),
         '9' => array('name' => '翻身'),
-        '10' => array('name' => '	震颤'),
+        '10' => array('name' => '震颤'),
         '11' => array('name' => '起床'),
         '12' => array('name' => '走路与平衡'),
         '13' => array('name' => '冻结'),
@@ -1659,10 +1663,10 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
     }
     $one[] = "Part Ⅳ总分";
     foreach ($part4_list as $key => $val) {
-        $one[] = "4" . $key . "、" . $val['name'];
+        $one[] = "4." . $key . "、" . $val['name'];
     }
     $one[] = "评分";
-    $one[] = "备注";
+//    $one[] = "备注";
     $cellTitle = $one;
 //    dump($one);
 
@@ -1684,7 +1688,7 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
 
         $part1 = unserialize($val['part1']);
@@ -1720,7 +1724,7 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
             $two[] = $part4[$key]['radio'];
         }
         $two[] = $val['score'];
-        $two[] = $val['remark'];
+//        $two[] = $val['remark'];
         $celldata[] = $two;
     }
     //合并单元格设置
@@ -1772,6 +1776,7 @@ function get_scale_npi($userList = array(), $visitList = array(), $user_ids = ar
     $one[] = "严重程度";
     $one[] = "频率×严重程度总分";
     $one[] = "使照料者苦恼程度";
+    $one[] = "备注";
     $cellTitle = $one;
 
     $model = Db::name('scale_npi');
@@ -1791,7 +1796,7 @@ function get_scale_npi($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['npi'];
@@ -1806,6 +1811,7 @@ function get_scale_npi($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = $val['score2'];
         $two[] = $val['score3'];
         $two[] = $val['score4'];
+        $two[] = $val['remark'];
         $celldata[] = $two;
     }
     //合并单元格设置
@@ -1888,7 +1894,7 @@ function get_scale_nmss($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['sc'];
@@ -1992,7 +1998,7 @@ function get_scale_mmse($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $score_item = unserialize($val['score_item']);
@@ -2042,16 +2048,17 @@ function get_scale_moca($userList = array(), $visitList = array(), $user_ids = a
 {
     $items_list = array(
         '1' => array('name' => '视空间与执行功能得分 ', 'unit' => ''),
-        '2' => array('name' => '记忆得分', 'unit' => ''),
-        '3' => array('name' => '注意得分 ', 'unit' => ''),
-        '4' => array('name' => '注意得分', 'unit' => ''),
+        '2' => array('name' => '命名得分', 'unit' => ''),
+        '3' => array('name' => '记忆得分', 'unit' => ''),
+        '4' => array('name' => '注意得分 ', 'unit' => ''),
         '5' => array('name' => '注意得分', 'unit' => ''),
-        '6' => array('name' => '语言得分', 'unit' => ''),
-        '7' => array('name' => '语言得分 ', 'unit' => ''),
-        '8' => array('name' => '语言得分', 'unit' => ''),
-        '9' => array('name' => '抽象得分 ', 'unit' => ''),
-        '10' => array('name' => '延迟回忆得分', 'unit' => ''),
-        '11' => array('name' => '定向得分', 'unit' => ''),
+        '6' => array('name' => '注意得分', 'unit' => ''),
+        '7' => array('name' => '语言得分', 'unit' => ''),
+        '8' => array('name' => '语言得分 ', 'unit' => ''),
+        '9' => array('name' => '语言得分', 'unit' => ''),
+        '10' => array('name' => '抽象得分 ', 'unit' => ''),
+        '11' => array('name' => '延迟回忆得分', 'unit' => ''),
+        '12' => array('name' => '定向得分', 'unit' => ''),
     );
 
     //设置表头
@@ -2083,7 +2090,7 @@ function get_scale_moca($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $two[] = $items[1]['t'];
@@ -2176,7 +2183,7 @@ function get_scale_hamd($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['mmse'];
@@ -2252,7 +2259,7 @@ function get_scale_hama($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['hama'];
@@ -2328,7 +2335,7 @@ function get_scale_maes($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['hama'];
@@ -2425,7 +2432,7 @@ function get_scale_psqi($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['psqi'];
@@ -2513,7 +2520,7 @@ function get_scale_ess($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['ess'];
@@ -2589,7 +2596,7 @@ function get_scale_fai($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['ess'];
@@ -2693,7 +2700,7 @@ function get_scale_pdql($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['npi'];
@@ -2774,7 +2781,7 @@ function get_scale_adl($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['adl'];
@@ -2875,7 +2882,7 @@ function get_scale_dlb($userList = array(), $visitList = array(), $user_ids = ar
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['dlb'];
@@ -3038,7 +3045,7 @@ function get_scale_frozen($userList = array(), $visitList = array(), $user_ids =
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         foreach ($items_list as $key => $vv) {
@@ -3127,7 +3134,7 @@ function get_scale_stroop($userList = array(), $visitList = array(), $user_ids =
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         foreach ($items_list as $key => $vv) {
@@ -3186,7 +3193,7 @@ function get_scale_wais($userList = array(), $visitList = array(), $user_ids = a
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $two[] = $val['score'];
@@ -3251,7 +3258,7 @@ function get_scale_sc_en($userList = array(), $visitList = array(), $user_ids = 
         $two[] = date("Y-m-d", $user['birthday']);
         $two[] = $sex_text[$user['sex']];
         $two[] = $user['age'];
-        $two[] = empty($visit) ? date('Y-m-d', $val['create_time']) : date('Y-m-d', $visit['visit_time']);
+        $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
         $items = $items['sc'];

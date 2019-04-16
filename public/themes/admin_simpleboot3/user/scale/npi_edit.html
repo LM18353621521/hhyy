@@ -68,8 +68,8 @@
                             <th width="520" style="text-align: center">
                                 症状
                             </th>
-                            <td width="50">有&nbsp;<br>无</td>
-                            <td width="60">频率</td>
+                            <td width="80">有&nbsp;<br>无</td>
+                            <td width="80">频率</td>
                             <td width="80">严重程度</td>
                             <td width="100">频率×严重程度</td>
                             <td width="100">使照料者苦恼程度</td>
@@ -162,7 +162,6 @@
             score1=score1?parseFloat(score1):0;
             score2=score2?parseFloat(score2):0;
             $(this).parents('tr').find('.score3').val(score1*score2);
-
             count_score();
         });
 
@@ -177,26 +176,26 @@
             var score =$(this).val();
             score=score?parseFloat(score):0;
             t1+=score;
+            $('.t1').val(t1);
         });
         $(".score2").each(function(){
             var score =$(this).val();
             score=score?parseFloat(score):0;
             t2+=score;
+            $('.t2').val(t2);
         });
         $(".score3").each(function(){
             var score =$(this).val();
             score=score?parseFloat(score):0;
             t3+=score;
+            $('.t3').val(t3);
         });
         $(".score4").each(function(){
             var score =$(this).val();
             score=score?parseFloat(score):0;
             t4+=score;
+            $('.t4').val(t4);
         });
-        $('.t1').val(t1);
-        $('.t2').val(t2);
-        $('.t3').val(t3);
-        $('.t4').val(t4);
     }
 
 </script>
