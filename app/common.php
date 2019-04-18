@@ -471,6 +471,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
                     $two[] = $items["disease" . $key]['drug_year'];
                     break;
                 case 3:
+                    $two[] = $item_text1[$items["disease" . $key]['radio']];
                     $two[] = $item_text3[$items["disease" . $key]['type']];
                     $two[] = $items["disease" . $key]['s_age'];
                     $two[] = $items["disease" . $key]['drug_type'];
@@ -628,10 +629,10 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
 
     //睡眠障碍
     $item_list7 = array(
-        's1' => array('name' => '痴呆', 'unit' => ''),
-        's2' => array('name' => 'MCI', 'unit' => ''),
-        's3' => array('name' => '言语障碍', 'unit' => ''),
-        's4' => array('name' => '记忆障碍', 'unit' => ''),
+        's1' => array('name' => '失眠', 'unit' => ''),
+        's2' => array('name' => '白天嗜睡', 'unit' => ''),
+        's3' => array('name' => 'RBD ', 'unit' => ''),
+        's4' => array('name' => '不安腿综合征（RLS', 'unit' => ''),
     );
     $one[] = "睡眠障碍";
     foreach ($item_list7 as $key => $val) {
@@ -682,7 +683,7 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         if ($key <= 9) {
             $one[] = "出现时间";
         }
-        if ($key == 3) {
+        if ($key == 2) {
             $one[] = "出现视幻觉的频率";
         }
         if ($key == 3) {
@@ -755,13 +756,13 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
             if ($key == 2) {
                 $two[] = $items[2][$key]['age'];
             } elseif ($key == '3') {
-                $two[] = $items[2][$key]['s1'] == 1 ? "√" : "×";
+                $two[] = $items[2][$key]['s1'] == 1 ? "√" : "";
                 $two[] = $item_text_bw[$items[2][$key]['radios1']];
                 $two[] = $items[2][$key]['age1'];
-                $two[] = $items[2][$key]['s2'] == 1 ? "√" : "×";
+                $two[] = $items[2][$key]['s2'] == 1 ? "√" : "";
                 $two[] = $item_text_bw[$items[2][$key]['radios2']];
                 $two[] = $items[2][$key]['age2'];
-                $two[] = $items[2][$key]['s2'] == 1 ? "√" : "×";
+                $two[] = $items[2][$key]['s2'] == 1 ? "√" : "";
                 $two[] = $item_text_bw[$items[2][$key]['radios3']];
                 $two[] = $items[2][$key]['age3'];
             } elseif ($key == '4') {
@@ -776,7 +777,7 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
             if ($key == 1) {
                 $two[] = $item_text_has[$items[3][$key]['radio']];
             } else {
-                $two[] = $items[3][$key]['radio'] == 1 ? "√" : "×";
+                $two[] = $items[3][$key]['radio'] == 1 ? "√" : "";
                 $two[] = $items[3][$key]['age1'];
             }
         }
@@ -803,21 +804,21 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         //情绪障碍
         $two[] = $item_text_has1[$items[5][1]['radio']];
         foreach ($item_list5 as $key => $val) {
-            $two[] = $items[5][$key]['radio'] == 1 ? "√" : "×";
+            $two[] = $items[5][$key]['radio'] == 1 ? "√" : "";
             $two[] = $items[5][$key]['age1'];
         }
 
         //认知功能障碍
         $two[] = $item_text_has1[$items[6][1]['radio']];
         foreach ($item_list6 as $key => $val) {
-            $two[] = $items[6][$key]['radio'] == 1 ? "√" : "×";
+            $two[] = $items[6][$key]['radio'] == 1 ? "√" : "";
             $two[] = $items[6][$key]['age1'];
         }
 
         //睡眠障碍
         $two[] = $item_text_has1[$items[7][1]['radio']];
         foreach ($item_list7 as $key => $val) {
-            $two[] = $items[7][$key]['radio'] == 1 ? "√" : "×";
+            $two[] = $items[7][$key]['radio'] == 1 ? "√" : "";
             $two[] = $items[7][$key]['age1'];
         }
 
@@ -834,7 +835,7 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         $two[] = $item_text_has1[$items[9][1]['radio']];
         foreach ($item_list9 as $key => $val) {
             if ($key != "other") {
-                $two[] = $items[9][$key]['radio'] == 1 ? "√" : "×";
+                $two[] = $items[9][$key]['radio'] == 1 ? "√" : "";
                 $two[] = $items[9][$key]['age1'];
             } else {
                 $two[] = $items[9]['other'];
@@ -857,11 +858,13 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
 
 //        $two[] = $val['remark'];
         $celldata[] = $two;
+//        dump($two);
     }
     //合并单元格设置
     $cellMerge = array(
         array('title' => '患者信息', 'start' => "A1", 'end' => 'G1'),
         array('title' => '运动症状', 'start' => "H1", 'end' => 'BE1'),
+        array('title' => '非运动症状', 'start' => "BF1", 'end' => 'CW1'),
         array('title' => '路易体痴呆专用病史及症状', 'start' => "CX1", 'end' => 'DW1'),
     );
     //设置工作区标题
@@ -1175,25 +1178,25 @@ function get_assist_check($userList = array(), $visitList = array(), $user_ids =
                     $two[] = $items[$key]['desc'];
                     break;
                 case "spect":
-                    $two[] = $item_text1[$items[$key]['res1']];
-                    $two[] = $item_text1[$items[$key]['res2']];
+                    $two[] = $item_text3[$items[$key]['res1']];
+                    $two[] = $item_text3[$items[$key]['res2']];
                     $two[] = $items[$key]['desc'];
                     break;
                 case "pet":
-                    $two[] = $item_text1[$items[$key]['res1']];
-                    $two[] = $item_text1[$items[$key]['res2']];
+                    $two[] = $item_text3[$items[$key]['res1']];
+                    $two[] = $item_text3[$items[$key]['res2']];
                     $two[] = $items[$key]['desc'];
                     break;
                 case "sleep":
-                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $item_text3[$items[$key]['res1']];
                     $two[] = $items[$key]['desc'];
                     break;
                 case "eeg":
-                    $two[]= $item_text1[$items[$key]['res1']];
+                    $two[]= $item_text3[$items[$key]['res1']];
                     $two[]= $items[$key]['desc'];
                     break;
                 case "cardiokymography":
-                    $two[] = $item_text1[$items[$key]['res1']];
+                    $two[] = $item_text3[$items[$key]['res1']];
                     $two[] = $items[$key]['desc'];
                     break;
             }
@@ -1463,13 +1466,13 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $items2 = unserialize($val['new_diagnose']);
 
         //初步诊断
-        $two[] = $val['pd_o'] == 1 ? "√" : "×";
+        $two[] = $val['pd_o'] == 1 ? "√" : "";
         $two[] = $items1['o12'];
 
         if ($val['pds_o'] == 1) {
             $two[] = "√" . $items1['o22'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
 
         foreach ($item_text as $key => $item) {
@@ -1491,26 +1494,26 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         if ($val['hpds_o'] == 1) {
             $two[] = "√" . $items1['o42'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
 
-        $two[] = $val['msa_o'] == 1 ? "√" : "×";
-        $two[] = $val['psp_o'] == 1 ? "√" : "×";
-        $two[] = $val['cbd_cbs_o'] == 1 ? "√" : "×";
-        $two[] = $val['dlb_o'] == 1 ? "√" : "×";
-        if ($val['n_pdo_o'] == 1) {
+        $two[] = $val['msa_o'] == 1 ? "√" : "";
+        $two[] = $val['psp_o'] == 1 ? "√" : "";
+        $two[] = $val['cbd_cbs_o'] == 1 ? "√" : "";
+        $two[] = $val['dlb_o'] == 1 ? "√" : "";
+        if ($val['n_pd_o'] == 1) {
             $two[] = "√" . $items1['o92'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
 
         //修正诊断
-        $two[] = $val['pd_n'] == 1 ? "√" : "×";
+        $two[] = $val['pd_n'] == 1 ? "√" : "";
         $two[] = $items2['n12'];
         if ($val['pds_n'] == 1) {
             $two[] = "√" . $items1['n22'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
         foreach ($item_text as $key => $item) {
             if ($items1['n31'] == 7) {
@@ -1531,17 +1534,17 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         if ($val['hpds_n'] == 1) {
             $two[] = "√" . $items1['n42'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
 
-        $two[] = $val['msa_n'] == 1 ? "√" : "×";
-        $two[] = $val['psp_n'] == 1 ? "√" : "×";
-        $two[] = $val['cbd_cbs_n'] == 1 ? "√" : "×";
-        $two[] = $val['dlb_n'] == 1 ? "√" : "×";
-        if ($val['n_pdo_n'] == 1) {
+        $two[] = $val['msa_n'] == 1 ? "√" : "";
+        $two[] = $val['psp_n'] == 1 ? "√" : "";
+        $two[] = $val['cbd_cbs_n'] == 1 ? "√" : "";
+        $two[] = $val['dlb_n'] == 1 ? "√" : "";
+        if ($val['n_pd_n'] == 1) {
             $two[] = "√" . $items2['n92'];
         } else {
-            $two[] = "×";
+            $two[] = "";
         }
 
         $celldata[] = $two;
@@ -2445,7 +2448,17 @@ function get_scale_psqi($userList = array(), $visitList = array(), $user_ids = a
             }
             if ($key == 5) {
                 foreach ($items_list1 as $keys => $vals) {
-                    $two[] = $item_text2[$items[$key][$keys]];
+                    if($keys=="j"){
+                        if($items[$key][$keys]>0){
+                            $two[] = $item_text2[$items[$key][$keys]]."(".$items[$key]['k'].")";
+                        }else{
+                            $two[] = $item_text2[$items[$key][$keys]];
+                        }
+
+                    }else{
+                        $two[] = $item_text2[$items[$key][$keys]];
+                    }
+
                 }
             }
             if ($key == 6) {
@@ -3027,7 +3040,7 @@ function get_scale_frozen($userList = array(), $visitList = array(), $user_ids =
         ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
     $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
 
-    $item_text = array('1' => '自己完全可以做', '2' => "可以做但有些困难", '3' => "有较大困难需要家人帮助", '4' => "完全需要家人帮助");
+    $item_text = array('0' => '在最近一个月内我没有出现过这种冻结事件', '1' => "在最近一个月内我出现过这种冻结事件");
     $item_text1 = array('0' => '是', '1' => "否");
     $item_text2 = array('0' => '一次发作＞7天  ', '1' => "不经常，大约一周一次  ", '2' => "经常，大约一天一次  ", '3' => "非常频繁，一天超过一次  ");
     $item_text3 = array('0' => '从不', '1' => "极少，大约一月一次 ", '2' => "不经常，大约一周一次", '3' => "经常，大约一天一次", '4' => "非常频繁，一天超过一次");
@@ -3051,7 +3064,7 @@ function get_scale_frozen($userList = array(), $visitList = array(), $user_ids =
         foreach ($items_list as $key => $vv) {
             switch ($key) {
                 case 1:
-                    $two[] = $item_text1[$items[$key]];
+                    $two[] = $item_text[$items[$key]];
                     break;
                 case 2:
                     $two[] = $item_text2[$items[$key]];
