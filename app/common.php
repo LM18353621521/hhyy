@@ -1787,6 +1787,7 @@ function get_scale_npi($userList = array(), $visitList = array(), $user_ids = ar
         ->where(array('user_id' => array('in', $user_ids)))
         ->order('a.user_id asc,a.visit_id asc,a.id desc')->select()->toArray();
     $sex_text = array('0' => '保密', '1' => "男", '2' => "女");
+    $item_text = array('1' => "是", '2' => "否");
 
     //拼装数据
     $celldata = [];
@@ -1804,7 +1805,7 @@ function get_scale_npi($userList = array(), $visitList = array(), $user_ids = ar
         $items = unserialize($val['items']);
         $items = $items['npi'];
         foreach ($items_list as $key => $val1) {
-            $two[] = $items[$key][1] == 1 ? "是" : "否";
+            $two[] = $item_text[$items[$key][1]];
             $two[] = $items[$key][2];
             $two[] = $items[$key][3];
             $two[] = $items[$key][4];

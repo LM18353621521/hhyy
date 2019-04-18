@@ -210,7 +210,6 @@ class AdminIndexController extends AdminBaseController
         }
 //        dump($sheetName);
 //        die();
-
         $this->export_do('帕金森系统', $sheetName, $cellMerge, $cellTitle, $celldata);
 
     }
@@ -423,7 +422,6 @@ class AdminIndexController extends AdminBaseController
                 $data['create_time'] = time();
                 $res = Db::name('user')->insertGetId($data);
                 foreach ($user_info as &$val) {
-                    dump($val);
                     if (is_array($val)) {
                         $val = serialize($val);
                     }
@@ -758,9 +756,7 @@ class AdminIndexController extends AdminBaseController
             $res = Db::query($sql);
         }
 
-
         die();
-
 
         header("Content-type:text/html;charset=utf-8");
         $url = "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=7hc7IQMDGTAuyuQqRod06BBs&client_secret=UXE4ze6tKbs41zrjflbO39A58IpxPYWf";
@@ -779,5 +775,53 @@ class AdminIndexController extends AdminBaseController
         $this->assign('res', $result);
         return $this->fetch();
     }
+
+
+    public function test_del()
+    {
+        $res = Db::name('user')->where(array('user_type'=>2))->delete();
+        $res = Db::name('user_info')->where(array('id'=>array('gt',0)))->delete();
+
+        $table_list1 = array(
+            'user_assay_check',
+            'user_assist_check',
+            'user_body_check',
+            'user_center_diagnose',
+            'user_drug_history',
+            'user_image_check',
+            'user_major_medical',
+            'user_medical_history',
+            'user_pd_disease',
+        );
+        $table_list2 = array(
+            'scale_adl',
+            'scale_dlb',
+            'scale_ess',
+            'scale_fai',
+            'scale_frozen',
+            'scale_hama',
+            'scale_hamd',
+            'scale_maes',
+            'scale_mmse',
+            'scale_moca',
+            'scale_nmss',
+            'scale_npi',
+            'scale_pdql',
+            'scale_psqi',
+            'scale_sc_en',
+            'scale_stroop',
+            'scale_wais',
+        );
+
+        foreach ($table_list1 as $val) {
+            $res = Db::name($val)->where(array('id'=>array('gt',0)))->delete();
+        }
+        foreach ($table_list2 as $val) {
+            $res = Db::name($val)->where(array('id'=>array('gt',0)))->delete();
+        }
+
+        dump(array('执行完毕'));
+    }
+
 
 }
