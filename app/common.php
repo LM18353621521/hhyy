@@ -1511,19 +1511,19 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         $two[] = $val['pd_n'] == 1 ? "√" : "";
         $two[] = $items2['n12'];
         if ($val['pds_n'] == 1) {
-            $two[] = "√" . $items1['n22'];
+            $two[] = "√" . $items2['n22'];
         } else {
             $two[] = "";
         }
         foreach ($item_text as $key => $item) {
-            if ($items1['n31'] == 7) {
+            if ($items2['n31'] == 7) {
                 if ($key == '7') {
-                    $two[] = $items1['n32'];
+                    $two[] = $items2['n32'];
                 } else {
                     $two[] = "";
                 }
             } else {
-                if ($items1['n31'] == $key) {
+                if ($items2['n31'] == $key) {
                     $two[] = "√";
                 } else {
                     $two[] = "";
@@ -1532,7 +1532,7 @@ function get_center_diagnose($userList = array(), $visitList = array(), $user_id
         }
 
         if ($val['hpds_n'] == 1) {
-            $two[] = "√" . $items1['n42'];
+            $two[] = "√" . $items2['n42'];
         } else {
             $two[] = "";
         }
