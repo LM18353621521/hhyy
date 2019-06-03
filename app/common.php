@@ -1323,6 +1323,7 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
     $one = array(
         '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
     );
+    $one[]="是否用药";
     foreach ($items_list as $key => $val) {
         if ($key = "other") {
         } else {
@@ -1345,6 +1346,7 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
 
     $item_text1 = array('1' => ' 是 ', '2' => "否");
     $item_text2 = array('1' => ' 有 ', '2' => "无");
+    $item_text3 = array('1' => ' 已用药 ', '2' => "未用药");
     //拼装数据
     $celldata = [];
     foreach ($dataList as $val) {
@@ -1359,6 +1361,7 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
         $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
+        $two[]=$item_text3[$items[0][0]];
         foreach ($items_list as $key => $vv) {
             if ($key == "other") {
 

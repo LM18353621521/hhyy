@@ -21,7 +21,7 @@
 									<input type="text" class="form-control" id="input-site-name" name="options[site_name]" value="{$site_name|default=''}">
 								</div>
 							</div>
-							<div class="form-group">
+<!--							<div class="form-group">
 								<label for="input-admin_url_password" class="col-sm-2 control-label">后台加密码</label>
 								<div class="col-md-6 col-sm-10">
 									<input type="text" class="form-control" id="input-admin_url_password" name="admin_settings[admin_password]" value="{$admin_settings.admin_password|default=''}" id="js-site-admin-url-password">
@@ -37,7 +37,7 @@
 										<p class="help-block">后台登录地址：<span id="js-site-admin-url">{:$site_domain}/{$admin_settings.admin_password}</span></p>
 									</if>
 								</div>
-							</div>
+							</div>-->
 							<!--
 							<div class="form-group">
 								<label for="input-mobile_tpl_enabled" class="col-sm-2 control-label">{:lang('ENABLE_MOBILE_THEME')}</label>
@@ -94,15 +94,86 @@
 							<div class="form-group">
 								<label for="input-visit_hour" class="col-sm-2 control-label">随访提醒时间</label>
 								<div class="col-md-6 col-sm-10">
-									<input type="number" class="form-control" id="input-visit_hour" name="options[visit_hour]" value="{$visit_hour|default=''}">
-									<p class="help-block">随访提醒时间，访问前()个小时内提醒</p>
+									<select class="form-control" name="options[visit_hour]" id="input-visit_hour">
+										<option value="1" <eq name="visit_hour" value="1">selected</eq>>1小时</option>
+										<option value="2" <eq name="visit_hour" value="2">selected</eq>>2小时</option>
+										<option value="3" <eq name="visit_hour" value="3">selected</eq>>3小时</option>
+										<option value="4" <eq name="visit_hour" value="4">selected</eq>>4小时</option>
+										<option value="5" <eq name="visit_hour" value="5">selected</eq>>5小时</option>
+										<option value="6" <eq name="visit_hour" value="6">selected</eq>>6小时</option>
+										<option value="7" <eq name="visit_hour" value="7">selected</eq>>7小时</option>
+										<option value="8" <eq name="visit_hour" value="8">selected</eq>>8小时</option>
+										<option value="9" <eq name="visit_hour" value="9">selected</eq>>9小时</option>
+										<option value="10" <eq name="visit_hour" value="10">selected</eq>>10小时</option>
+										<option value="11" <eq name="visit_hour" value="11">selected</eq>>11小时</option>
+										<option value="12" <eq name="visit_hour" value="12">selected</eq>>12小时</option>
+										<option value="13" <eq name="visit_hour" value="13">selected</eq>>13小时</option>
+										<option value="14" <eq name="visit_hour" value="14">selected</eq>>14小时</option>
+										<option value="15" <eq name="visit_hour" value="15">selected</eq>>15小时</option>
+										<option value="16" <eq name="visit_hour" value="16">selected</eq>>16小时</option>
+										<option value="17" <eq name="visit_hour" value="17">selected</eq>>17小时</option>
+										<option value="18" <eq name="visit_hour" value="18">selected</eq>>18小时</option>
+										<option value="19" <eq name="visit_hour" value="19">selected</eq>>19小时</option>
+										<option value="20" <eq name="visit_hour" value="20">selected</eq>>20小时</option>
+										<option value="21" <eq name="visit_hour" value="21">selected</eq>>21小时</option>
+										<option value="22" <eq name="visit_hour" value="22">selected</eq>>22小时</option>
+										<option value="23" <eq name="visit_hour" value="23">selected</eq>>23小时</option>
+										<option value="24" <eq name="visit_hour" value="24">selected</eq>>1天</option>
+										<option value="48" <eq name="visit_hour" value="48">selected</eq>>2天</option>
+										<option value="72" <eq name="visit_hour" value="72">selected</eq>>3天</option>
+										<option value="96" <eq name="visit_hour" value="96">selected</eq>>4天</option>
+										<option value="120" <eq name="visit_hour" value="120">selected</eq>>5天</option>
+										<option value="144" <eq name="visit_hour" value="144">selected</eq>>6天</option>
+										<option value="168" <eq name="visit_hour" value="168">selected</eq>>7天</option>
+										<option value="192" <eq name="visit_hour" value="192">selected</eq>>8天</option>
+										<option value="216" <eq name="visit_hour" value="216">selected</eq>>9天</option>
+										<option value="240" <eq name="visit_hour" value="240">selected</eq>>10天</option>
+										<option value="264" <eq name="visit_hour" value="264">selected</eq>>11天</option>
+										<option value="288" <eq name="visit_hour" value="288">selected</eq>>12天</option>
+										<option value="312" <eq name="visit_hour" value="312">selected</eq>>13天</option>
+										<option value="336" <eq name="visit_hour" value="336">selected</eq>>14天</option>
+										<option value="360" <eq name="visit_hour" value="360">selected</eq>>15天</option>
+										<option value="384" <eq name="visit_hour" value="384">selected</eq>>16天</option>
+										<option value="408" <eq name="visit_hour" value="408">selected</eq>>17天</option>
+										<option value="432" <eq name="visit_hour" value="432">selected</eq>>18天</option>
+										<option value="456" <eq name="visit_hour" value="456">selected</eq>>19天</option>
+										<option value="480" <eq name="visit_hour" value="480">selected</eq>>20天</option>
+									</select>
+									<p class="help-block">随访提醒时间，在随访时间前()个小时内提醒</p>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="input-tips_interval" class="col-sm-2 control-label">随提醒间隔</label>
+								<label for="input-tips_interval" class="col-sm-2 control-label">随访提醒间隔</label>
 								<div class="col-md-6 col-sm-10">
-									<input type="number" class="form-control" id="input-tips_interval" name="options[tips_interval]" value="{$tips_interval|default=''}">
+									<select class="form-control" name="options[tips_interval]" id="input-tips_interval">
+										<option value="10" <eq name="tips_interval" value="10">selected</eq>>10分钟</option>
+										<option value="30" <eq name="tips_interval" value="30">selected</eq>>30分钟</option>
+										<option value="60" <eq name="tips_interval" value="60">selected</eq>>1小时</option>
+										<option value="120" <eq name="tips_interval" value="120">selected</eq>>2小时</option>
+										<option value="180" <eq name="tips_interval" value="180">selected</eq>>3小时</option>
+										<option value="240" <eq name="tips_interval" value="240">selected</eq>>4小时</option>
+										<option value="300" <eq name="tips_interval" value="300">selected</eq>>5小时</option>
+										<option value="360" <eq name="tips_interval" value="360">selected</eq>>6小时</option>
+										<option value="420" <eq name="tips_interval" value="7">selected</eq>>7小时</option>
+										<option value="480" <eq name="tips_interval" value="480">selected</eq>>8小时</option>
+										<option value="540" <eq name="tips_interval" value="540">selected</eq>>9小时</option>
+										<option value="600" <eq name="tips_interval" value="600">selected</eq>>10小时</option>
+										<option value="660" <eq name="tips_interval" value="660">selected</eq>>11小时</option>
+										<option value="720" <eq name="tips_interval" value="720">selected</eq>>12小时</option>
+										<option value="780" <eq name="tips_interval" value="780">selected</eq>>13小时</option>
+										<option value="840" <eq name="tips_interval" value="840">selected</eq>>14小时</option>
+										<option value="900" <eq name="tips_interval" value="900">selected</eq>>15小时</option>
+										<option value="960" <eq name="tips_interval" value="16">selected</eq>>16小时</option>
+										<option value="1020" <eq name="tips_interval" value="1020">selected</eq>>17小时</option>
+										<option value="1080" <eq name="tips_interval" value="18">selected</eq>>18小时</option>
+										<option value="1140" <eq name="tips_interval" value="1140">selected</eq>>19小时</option>
+										<option value="1200" <eq name="tips_interval" value="1200">selected</eq>>20小时</option>
+										<option value="1260" <eq name="tips_interval" value="1260">selected</eq>>21小时</option>
+										<option value="1320" <eq name="tips_interval" value="22">selected</eq>>22小时</option>
+										<option value="1380" <eq name="tips_interval" value="1380">selected</eq>>23小时</option>
+										<option value="1440" <eq name="tips_interval" value="1440">selected</eq>>24小时</option>
+									</select>
 									<p class="help-block">随访提醒间隔，距离上一次提醒后多长时间再次提醒，单位：分钟</p>
 								</div>
 							</div>

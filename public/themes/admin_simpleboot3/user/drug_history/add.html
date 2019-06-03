@@ -43,6 +43,18 @@
                         <td>
                         </td>
                     </tr>
+                    <tr>
+                        <th width="200">是否用药<span class="form-required"></span></th>
+                        <td colspan="4">
+                            <select class="form-control" name="items[0][0]">
+                                <option value="0">请选择</option>
+                                <option value="1" <eq name="1" value="$data[items][0][0]">selected</eq> >已用药</option>
+                                <option value="2" <eq name="2" value="$data[items][0][0]">selected</eq> >未用药</option>
+                            </select>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
 
                     <foreach name="items_list" item="vo" key="k">
                         <tr>
