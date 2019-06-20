@@ -376,8 +376,8 @@
                             <th width="20">2.b<span class="form-required"></span></th>
                             <th width="150">临床功能状态<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="part2[b][radio]" value="1" <eq name="data[part2][b][radio]" value="1">checked</eq>> 是 &nbsp;&nbsp;
-                                <input type="radio" name="part2[b][radio]" value="2" <eq name="data[part2][b][radio]" value="2">checked</eq>> 否 &nbsp;&nbsp;
+                                <input type="radio" name="part2[b][radio]" value="1" <eq name="data[part2][b][radio]" value="1">checked</eq>> 开 &nbsp;&nbsp;
+                                <input type="radio" name="part2[b][radio]" value="2" <eq name="data[part2][b][radio]" value="2">checked</eq>> 关 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
@@ -846,6 +846,12 @@
                             </td>
                         </tr>
                     </table>
+                    <tr>
+                        <td>
+                            其他--Hoehn and YaHr Stage：
+                        </td>
+                        <td colspan="3"><textarea class="form-control"  name="part4[other][remark]" style="height: 80px;"  placeholder="请输入">{$data[part4][other][remark]}</textarea></td>
+                    </tr>
                     <tr>
                         <th width="50">评分</th>
                         <td colspan="6">

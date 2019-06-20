@@ -154,16 +154,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>居住状况<span class="form-required"></span></th>
-                                <td>
-                                    <input type="radio" name="user_info[live_status][radio]" value="1">独居
-                                    <input type="radio" name="user_info[live_status][radio]" value="2">与配偶居住
-                                    <input type="radio" name="user_info[live_status][radio]" value="3">与子女居住
-                                    <input type="radio" name="user_info[live_status][radio]" value="4">其他
-                                    <input class="form-control" type="text" name="user_info[live_status][other]"  placeholder=""/>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>吸烟史<span class="form-required"></span></th>
                                 <td>
                                     <input type="radio" name="user_info[smoking][radio]" value="1">无
@@ -190,8 +180,9 @@
                             <tr>
                             <th>饮酒史<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="user_info[drink_wine][radio]" value="1">无
-                                <input type="radio" name="user_info[drink_wine][radio]" value="2">经常饮用
+                                <input type="radio" name="user_info[drink_wine][radio]" value="1" <eq name="user_info[drink_wine][radio]" value="1">checked</eq> >无
+                                <input type="radio" name="user_info[drink_wine][radio]" value="2" <eq name="user_info[drink_wine][radio]" value="2">checked</eq> >曾经饮酒
+                                <input type="radio" name="user_info[drink_wine][radio]" value="3" <eq name="user_info[drink_wine][radio]" value="3">checked</eq> >现在饮酒
                             </td>
                         </tr>
                             <tr>
@@ -212,9 +203,8 @@
                             <tr>
                                 <th>饮咖啡史<span class="form-required"></span></th>
                                 <td>
-                                    <input type="radio" name="user_info[drink_coffee][radio]" value="1">无
-                                    <input type="radio" name="user_info[drink_coffee][radio]" value="2">曾经饮酒
-                                    <input type="radio" name="user_info[drink_coffee][radio]" value="3">现在饮酒
+                                    <input type="radio" name="user_info[drink_coffee][radio]" value="1" <eq name="user_info[drink_coffee][radio]" value="1">checked</eq> >无
+                                    <input type="radio" name="user_info[drink_coffee][radio]" value="2" <eq name="user_info[drink_coffee][radio]" value="2">checked</eq> >经常饮用</td>
                                 </td>
                             </tr>
                             <tr>
@@ -234,17 +224,6 @@
                                 <td>
                                     <input type="radio" name="user_info[drink_tea][radio]" value="1">无
                                     <input type="radio" name="user_info[drink_tea][radio]" value="2">经常饮用
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>时间<span class="form-required"></span></th>
-                                <td>
-                                    <input class="form-control" type="text" name="user_info[drink_tea][year]"  placeholder=""/>
-                                    年
-                                    <input class="form-control" type="text" name="user_info[drink_tea][month]"  placeholder=""/>
-                                    月,
-                                    种类剂量
-                                    <input class="form-control" type="text" name="user_info[drink_tea][type_num]"  placeholder=""/>
                                 </td>
                             </tr>
                             <tr>

@@ -294,7 +294,7 @@ function get_user_info($userList = array(), $visitList = array(), $user_ids = ar
 
             //居住
             if ($user_info['live_status']['radio'] == 4) {
-                $two[] =  $user_info['live_status']['other'];
+                $two[] = $user_info['live_status']['other'];
             } else {
                 $two[] = $item_text5[$user_info['live_status']['radio']];
             }
@@ -389,7 +389,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
     );
     foreach ($items_list as $key => $val) {
         $one[] = $val['name'];
-        if ($key != '3'&&$key != '10') {
+        if ($key != '3' && $key != '10') {
             $one[] = "开始年龄(岁)";
         }
         switch ($key) {
@@ -456,7 +456,7 @@ function get_medical_history($userList = array(), $visitList = array(), $user_id
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['content']);
         foreach ($items_list as $key => $vv) {
-            if ($key != 3&&$key != 10) {
+            if ($key != 3 && $key != 10) {
                 $two[] = $item_text1[$items["disease" . $key]['radio']];
                 $two[] = $items["disease" . $key]['s_age'];
             }
@@ -740,11 +740,17 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         $two[] = $items[1][3]['time2'];
         $two[] = $items[1][4]['age'];
         if ($items[1][5]['radio'] == 9) {
-            $two[] = $item_text2[$items[1][5]['radio']] . ":" . $items[1][5]['other'];;
+            $two[] = "其他：" . $items[1][5]['other'];
         } else {
             $two[] = $item_text2[$items[1][5]['radio']];
         }
-        $two[] = $item_text_bw[$items[1][7]['radio']];
+        $item_text_bw_show = [];
+        foreach ($item_text_bw as $key => $vv) {
+            if ($items[1][7]['radio' . $key]) {
+                $item_text_bw_show[] = $item_text_bw[$items[1][7]['radio' . $key]];
+            }
+        }
+        $two[] = implode('、', $item_text_bw_show);
 
         //运动症状
         foreach ($item_list2 as $key => $val) {
@@ -753,20 +759,55 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
             } else {
                 $two[] = $item_text_has[$items[2][$key]['radio']];
             }
+
             if ($key == 2) {
                 $two[] = $items[2][$key]['age'];
             } elseif ($key == '3') {
                 $two[] = $items[2][$key]['s1'] == 1 ? "√" : "";
-                $two[] = $item_text_bw[$items[2][$key]['radios1']];
+                $text_show = [];
+                if ($items[2][$key]['s1'] == 1) {
+                    foreach ($item_text_bw as $kek_s => $vv) {
+                        if ($item_text_bw[$items[2][$key]['radios1' . $kek_s]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                }
+                $two[] = implode('、', $text_show);
                 $two[] = $items[2][$key]['age1'];
                 $two[] = $items[2][$key]['s2'] == 1 ? "√" : "";
-                $two[] = $item_text_bw[$items[2][$key]['radios2']];
+//                $two[] = $item_text_bw[$items[2][$key]['radios2']];
+                $text_show = [];
+                if ($items[2][$key]['s2'] == 1) {
+                    foreach ($item_text_bw as $kek_s => $vv) {
+                        if ($item_text_bw[$items[2][$key]['radios2' . $kek_s]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                }
+                $two[] = implode('、', $text_show);
                 $two[] = $items[2][$key]['age2'];
-                $two[] = $items[2][$key]['s2'] == 1 ? "√" : "";
-                $two[] = $item_text_bw[$items[2][$key]['radios3']];
+                $two[] = $items[2][$key]['s3'] == 1 ? "√" : "";
+//                $two[] = $item_text_bw[$items[2][$key]['radios3']];
+                $text_show = [];
+                if ($items[2][$key]['s3'] == 1) {
+                    foreach ($item_text_bw as $kek_s => $vv) {
+                        if ($item_text_bw[$items[2][$key]['radios3' . $kek_s]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                }
+                $two[] = implode('、', $text_show);
+
                 $two[] = $items[2][$key]['age3'];
             } elseif ($key == '4') {
-                $two[] = $item_text_bw[$items[2][$key]['radios1']];
+//                $two[] = $item_text_bw[$items[2][$key]['radios1']];
+                $text_show = [];
+                foreach ($item_text_bw as $kk => $vv) {
+                    if ($item_text_bw[$items[2][$key]['radios1' . $kk]]) {
+                        $text_show[] = $vv;
+                    }
+                }
+                $two[] = implode('、', $text_show);
                 $two[] = $items[2][$key]['age1'];
             } elseif ($key >= 5) {
                 $two[] = $items[2][$key]['age1'];
@@ -789,13 +830,34 @@ function get_major_medical($userList = array(), $visitList = array(), $user_ids 
         foreach ($item_list4 as $key => $val) {
             switch ($key) {
                 case 1:
-                    $two[] = $item_text41[$items[4][$key]['radio1']];
+//                    $two[] = $item_text41[$items[4][$key]['radio1']];
+                    $text_show = [];
+                    foreach ($item_text41 as $kk => $vv) {
+                        if ($item_text41[$items[4][$key]['radio1' . $kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case 2:
-                    $two[] = $item_text42[$items[4][$key]['radio1']];
+//                    $two[] = $item_text42[$items[4][$key]['radio1']];
+                    $text_show = [];
+                    foreach ($item_text42 as $kk => $vv) {
+                        if ($item_text42[$items[4][$key]['radio1' . $kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case 3:
-                    $two[] = $item_text43[$items[4][$key]['radio1']];
+//                    $two[] = $item_text43[$items[4][$key]['radio1']];
+                    $text_show = [];
+                    foreach ($item_text43 as $kk => $vv) {
+                        if ($item_text43[$items[4][$key]['radio1' . $kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
             }
             $two[] = $items[4][$key]['age1'];
@@ -953,7 +1015,7 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
     $item_text6 = array('1' => "正常", '2' => "前倾 ", '3' => "后仰", '4' => "左偏", '5' => "右偏 ");
     $item_text7 = array('1' => "正常", '2' => "增高", '3' => "减低");
     $item_text8 = array('1' => "正常", '2' => "活跃 ", '3' => "减低 ", '4' => "消失");
-    $item_text9 = array('未引出' => "正常", '2' => "Babinski征：左侧  ", '3' => "Babinski征：右侧   ", '4' => " Chaddock征：左侧", '5' => "Chaddock征：右侧 ");
+    $item_text9 = array('1' => "未引出", '2' => "Babinski征：左侧  ", '3' => "Babinski征：右侧   ", '4' => " Chaddock征：左侧", '5' => "Chaddock征：右侧 ");
     $item_text10 = array('1' => "阴性", '2' => "阳性 ");
     $item_text11 = array('1' => "正常", '2' => "减退 ");
     $item_text12 = array('1' => "无", '2' => "左侧", '3' => "右侧");
@@ -978,13 +1040,21 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
         $items_sign = unserialize($val['sign']);
         $items_motion = unserialize($val['motion']);
         $items_nerve = unserialize($val['nerve']);
+        dump($items_sign);
         foreach ($sign_list as $key => $val1) {
             switch ($key) {
                 case "sign1":
                     $two[] = $item_text1[$items_sign[$key]];
                     break;
                 case "sign2":
-                    $two[] = $item_text2[$items_sign[$key]];
+//                    $two[] = $item_text2[$items_sign[$key]];
+                    $text_show = [];
+                    foreach ($item_text2 as $kk => $vv) {
+                        if ($item_text2[$items_sign[$key][$kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case "sign3":
                     $two[] = $item_text3[$items_sign[$key]];
@@ -1011,7 +1081,14 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
                     $two[] = $item_text8[$items_sign[$key]];
                     break;
                 case "sign10":
-                    $two[] = $item_text9[$items_sign[$key]];
+//                    $two[] = $item_text9[$items_sign[$key]];
+                    $text_show=[];
+                    foreach ($item_text9 as $kk => $vv) {
+                        if ($item_text9[$items_sign[$key][$kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case "sign11":
                     $two[] = $item_text10[$items_sign[$key]];
@@ -1023,17 +1100,38 @@ function get_body_check($userList = array(), $visitList = array(), $user_ids = a
                     $two[] = $item_text11[$items_sign[$key]];
                     break;
                 case "sign14":
-                    $two[] = $item_text12[$items_sign[$key]];
+//                    $two[] = $item_text12[$items_sign[$key]];
+                    $text_show=[];
+                    foreach ($item_text12 as $kk => $vv) {
+                        if ($item_text12[$items_sign[$key][$kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case "sign15":
-                    $two[] = $item_text13[$items_sign[$key]];
+//                    $two[] = $item_text13[$items_sign[$key]];
+                    $text_show=[];
+                    foreach ($item_text13 as $kk => $vv) {
+                        if ($item_text13[$items_sign[$key][$kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
             }
         }
         foreach ($motion_list as $key => $val2) {
             switch ($key) {
                 case "motion1":
-                    $two[] = $item_text14[$items_motion[$key]];
+//                    $two[] = $item_text14[$items_motion[$key]];
+                    $text_show=[];
+                    foreach ($item_text14 as $kk => $vv) {
+                        if ($item_text14[$items_motion[$key][$kk]]) {
+                            $text_show[] = $vv;
+                        }
+                    }
+                    $two[] = implode('、', $text_show);
                     break;
                 case "motion2":
                     $two[] = $item_text15[$items_motion[$key]];
@@ -1192,8 +1290,8 @@ function get_assist_check($userList = array(), $visitList = array(), $user_ids =
                     $two[] = $items[$key]['desc'];
                     break;
                 case "eeg":
-                    $two[]= $item_text3[$items[$key]['res1']];
-                    $two[]= $items[$key]['desc'];
+                    $two[] = $item_text3[$items[$key]['res1']];
+                    $two[] = $items[$key]['desc'];
                     break;
                 case "cardiokymography":
                     $two[] = $item_text3[$items[$key]['res1']];
@@ -1223,27 +1321,27 @@ function get_assist_check($userList = array(), $visitList = array(), $user_ids =
 function get_assay_check($userList = array(), $visitList = array(), $user_ids = array())
 {
     $items_list = array(
-        '1' => array('name' => '白细胞', 'unit' => '*109/L'),
+        '1' => array('name' => '白细胞', 'unit' => '10^9/L'),
         '2' => array('name' => '血红蛋白', 'unit' => 'g/L'),
-        '3' => array('name' => '红细胞', 'unit' => '*1012/L'),
+        '3' => array('name' => '红细胞', 'unit' => '10^12/L'),
         '4' => array('name' => '甘油三酯', 'unit' => 'mmol/L'),
         '5' => array('name' => '总胆固醇', 'unit' => 'mmol/L'),
         '6' => array('name' => '低密度', 'unit' => 'mmol/L'),
         '7' => array('name' => '高密度', 'unit' => 'mmol/L'),
-        '8' => array('name' => '同型半胱氨酸', 'unit' => 'mmol/L'),
+        '8' => array('name' => '同型半胱氨酸', 'unit' => 'μmol/L'),
         '9' => array('name' => '叶酸', 'unit' => 'ng/ml'),
         '10' => array('name' => '维生素B12', 'unit' => 'pg/ml'),
         '11' => array('name' => '铁蛋白', 'unit' => ' ng/ml'),
-        '12' => array('name' => '总胆红素', 'unit' => 'mmol/L'),
-        '13' => array('name' => '直接胆红素', 'unit' => 'mmol/L'),
-        '14' => array('name' => '间接胆红素', 'unit' => 'mmol/L'),
+        '12' => array('name' => '总胆红素', 'unit' => 'μmol/L'),
+        '13' => array('name' => '直接胆红素', 'unit' => 'μmol/L'),
+        '14' => array('name' => '间接胆红素', 'unit' => 'μmol/L'),
         '15' => array('name' => '谷氨酰转肽酶', 'unit' => 'U/L'),
         '16' => array('name' => '谷丙转氨酶', 'unit' => 'U/L'),
         '17' => array('name' => '谷草转氨酶', 'unit' => 'U/L'),
         '18' => array('name' => '碱性磷酸酶', 'unit' => 'U/L'),
         '19' => array('name' => '尿素氮', 'unit' => 'mmol/L'),
-        '20' => array('name' => '肌酐', 'unit' => 'mmol/L'),
-        '21' => array('name' => '尿酸', 'unit' => 'mmol/L'),
+        '20' => array('name' => '肌酐', 'unit' => 'μmol/L'),
+        '21' => array('name' => '尿酸', 'unit' => 'μmol/L'),
     );
 
     //设置表头
@@ -1323,17 +1421,17 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
     $one = array(
         '姓名', '患者编号', '出生日期', '性别', '年龄', '随访日期', '随访次数',
     );
-    $one[]="是否用药";
+    $one[] = "是否用药";
     foreach ($items_list as $key => $val) {
         if ($key = "other") {
         } else {
         }
         $one[] = "第一次服用时间";
-        $one[] = "开始剂量mg";
+        $one[] = "开始剂量(mg/次)";
         $one[] = "是否有效";
         $one[] = "不良反应";
         $one[] = "是否继续服用";
-        $one[] = "服用剂量";
+        $one[] = "服用剂量(次/日)";
         $one[] = "停药时间";
         $one[] = "停药原因";
     }
@@ -1361,7 +1459,7 @@ function get_drug_history($userList = array(), $visitList = array(), $user_ids =
         $two[] = empty($visit) ? date('Y-m-d H:i:s', $val['create_time']) : date('Y-m-d H:i:s', $visit['visit_time']);
         $two[] = empty($visit) ? '首访' : ('第' . $visit['visit_times'] . '次');
         $items = unserialize($val['items']);
-        $two[]=$item_text3[$items[0][0]];
+        $two[] = $item_text3[$items[0][0]];
         foreach ($items_list as $key => $vv) {
             if ($key == "other") {
 
@@ -1671,6 +1769,7 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
     foreach ($part4_list as $key => $val) {
         $one[] = "4." . $key . "、" . $val['name'];
     }
+    $one[] = "其他--Hoehn and YaHr Stage";
     $one[] = "评分";
 //    $one[] = "备注";
     $cellTitle = $one;
@@ -1703,14 +1802,17 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
         $part4 = unserialize($val['part4']);
         $score_item = unserialize($val['score_item']);
         $items_text1 = array('1' => '是', '2' => '否');
+        $items_text2 = array('1' => '开', '2' => '关');
         $two[] = $score_item['part1'];
         foreach ($part1_list as $key => $val1) {
             $two[] = $part1[$key]['radio'];
         }
         $two[] = $score_item['part2'];
         foreach ($part2_list as $key => $val2) {
-            if ($key == "a" || $key == "b" || $key == "c") {
+            if ($key == "a" || $key == "c") {
                 $two[] = $items_text1[$part2[$key]['radio']];
+            } elseif ($key == "b") {
+                $two[] = $items_text2[$part2[$key]['radio']];
             } elseif ($key == 'd') {
                 $two[] = $part2[$key]['date'];
             } else {
@@ -1729,6 +1831,7 @@ function get_scale_mds_updrs($userList = array(), $visitList = array(), $user_id
         foreach ($part4_list as $key => $val4) {
             $two[] = $part4[$key]['radio'];
         }
+        $two[] = $part4['other']['remark'];
         $two[] = $val['score'];
 //        $two[] = $val['remark'];
         $celldata[] = $two;
@@ -2452,14 +2555,14 @@ function get_scale_psqi($userList = array(), $visitList = array(), $user_ids = a
             }
             if ($key == 5) {
                 foreach ($items_list1 as $keys => $vals) {
-                    if($keys=="j"){
-                        if($items[$key][$keys]>0){
-                            $two[] = $item_text2[$items[$key][$keys]]."(".$items[$key]['k'].")";
-                        }else{
+                    if ($keys == "j") {
+                        if ($items[$key][$keys] > 0) {
+                            $two[] = $item_text2[$items[$key][$keys]] . "(" . $items[$key]['k'] . ")";
+                        } else {
                             $two[] = $item_text2[$items[$key][$keys]];
                         }
 
-                    }else{
+                    } else {
                         $two[] = $item_text2[$items[$key][$keys]];
                     }
 

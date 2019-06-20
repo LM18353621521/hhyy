@@ -32,27 +32,27 @@ class AssayCheckController extends AdminBaseController
         $this->admin_id = session('ADMIN_ID');
 
         $items_list = array(
-            '1' => array('name' => '白细胞', 'unit' => '*109/L'),
+            '1' => array('name' => '白细胞', 'unit' => '10^9/L'),
             '2' => array('name' => '血红蛋白', 'unit' => 'g/L'),
-            '3' => array('name' => '红细胞', 'unit' => '*1012/L'),
+            '3' => array('name' => '红细胞', 'unit' => '10^12/L'),
             '4' => array('name' => '甘油三酯', 'unit' => 'mmol/L'),
             '5' => array('name' => '总胆固醇', 'unit' => 'mmol/L'),
             '6' => array('name' => '低密度', 'unit' => 'mmol/L'),
             '7' => array('name' => '高密度', 'unit' => 'mmol/L'),
-            '8' => array('name' => '同型半胱氨酸', 'unit' => 'mmol/L'),
+            '8' => array('name' => '同型半胱氨酸', 'unit' => 'μmol/L'),
             '9' => array('name' => '叶酸', 'unit' => 'ng/ml'),
             '10' => array('name' => '维生素B12', 'unit' => 'pg/ml'),
             '11' => array('name' => '铁蛋白', 'unit' => ' ng/ml'),
-            '12' => array('name' => '总胆红素', 'unit' => 'mmol/L'),
-            '13' => array('name' => '直接胆红素', 'unit' => 'mmol/L'),
-            '14' => array('name' => '间接胆红素', 'unit' => 'mmol/L'),
+            '12' => array('name' => '总胆红素', 'unit' => 'μmol/L'),
+            '13' => array('name' => '直接胆红素', 'unit' => 'μmol/L'),
+            '14' => array('name' => '间接胆红素', 'unit' => 'μmol/L'),
             '15' => array('name' => '谷氨酰转肽酶', 'unit' => 'U/L'),
             '16' => array('name' => '谷丙转氨酶', 'unit' => 'U/L'),
             '17' => array('name' => '谷草转氨酶', 'unit' => 'U/L'),
             '18' => array('name' => '碱性磷酸酶', 'unit' => 'U/L'),
             '19' => array('name' => '尿素氮', 'unit' => 'mmol/L'),
-            '20' => array('name' => '肌酐', 'unit' => 'mmol/L'),
-            '21' => array('name' => '尿酸', 'unit' => 'mmol/L'),
+            '20' => array('name' => '肌酐', 'unit' => 'μmol/L'),
+            '21' => array('name' => '尿酸', 'unit' => 'μmol/L'),
         );
         $this->assign('items_list',$items_list);
 

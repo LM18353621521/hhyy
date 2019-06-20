@@ -167,7 +167,6 @@ class AdminIndexController extends AdminBaseController
         $userList = Db::name('user')->where($where)->order('id asc')->column("*");
         $user_ids = Db::name('user')->where($where)->order('id asc')->column("id");
         $visitList = Db::name('user_visit')->where(array('user_id' => ['in', $user_ids]))->order('id asc')->column("*");
-
         $tableList = array(
             'npi',
         );
@@ -232,7 +231,6 @@ class AdminIndexController extends AdminBaseController
         $cellKey1 = array('A', 'B', 'C', 'D', 'E');
         foreach ($cellKey1 as $kc) {
             foreach ($cellKey2 as $kcs) {
-                echo $kcs;
                 $cellKey[] = $kc . $kcs;
             }
         }

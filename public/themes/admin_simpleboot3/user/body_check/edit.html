@@ -64,10 +64,10 @@
                         <tr>
                             <th>眼部活动<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="sign[sign2]" value="1" <eq name="data[sign][sign2]" value="1">checked</eq>>正常 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign2]" value="2" <eq name="data[sign][sign2]" value="2">checked</eq>>垂直注视受限 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign2]" value="3" <eq name="data[sign][sign2]" value="3">checked</eq>>水平扫视缓慢 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign2]" value="4" <eq name="data[sign][sign2]" value="4">checked</eq>>眼球固定 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign2][1]" value="1" <eq name="data[sign][sign2][1]" value="1">checked</eq>>正常 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign2][2]" value="2" <eq name="data[sign][sign2][2]" value="2">checked</eq>>垂直注视受限 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign2][3]" value="3" <eq name="data[sign][sign2][3]" value="3">checked</eq>>水平扫视缓慢 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign2][4]" value="4" <eq name="data[sign][sign2][4]" value="4">checked</eq>>眼球固定 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
@@ -169,13 +169,13 @@
                         <tr>
                             <th>病理征<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="sign[sign10]" value="1" <eq name="data[sign][sign10]" value="1">checked</eq>>未引出 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign10][1]" value="1" <eq name="data[sign][sign10][1]" value="1">checked</eq>>未引出 &nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                Babinski征：<input type="radio" name="sign[sign10]" value="2" <eq name="data[sign][sign10]" value="2">checked</eq>>左侧
-                                <input type="radio" name="sign[sign10]" value="3" <eq name="data[sign][sign10]" value="3">checked</eq>>右侧
+                                Babinski征：<input type="checkbox" name="sign[sign10][2]" value="2" <eq name="data[sign][sign10][2]" value="2">checked</eq>>左侧
+                                <input type="checkbox" name="sign[sign10][3]" value="3" <eq name="data[sign][sign10][3]" value="3">checked</eq>>右侧
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                Chaddock征：<input type="radio" name="sign[sign10]" value="4" <eq name="data[sign][sign10]" value="4">checked</eq>>左侧
-                                <input type="radio" name="sign[sign10]" value="5" <eq name="data[sign][sign10]" value="5">checked</eq>>右侧
+                                Chaddock征：<input type="checkbox" name="sign[sign10][4]" value="4" <eq name="data[sign][sign10][4]" value="4">checked</eq>>左侧
+                                <input type="checkbox" name="sign[sign10][5]" value="5" <eq name="data[sign][sign10][5]" value="5">checked</eq>>右侧
                             </td>
                         </tr>
                         <tr>
@@ -202,17 +202,17 @@
                         <tr>
                             <th>肢体失用<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="sign[sign14]" value="1" <eq name="data[sign][sign14]" value="1">checked</eq>>无 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign14]" value="2" <eq name="data[sign][sign14]" value="2">checked</eq>>左侧 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign14]" value="3" <eq name="data[sign][sign14]" value="3">checked</eq>>右侧 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign14][1]" value="1" <eq name="data[sign][sign14][1]" value="1">checked</eq>>无 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign14][2]" value="2" <eq name="data[sign][sign14][2]" value="2">checked</eq>>左侧 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign14][3]" value="3" <eq name="data[sign][sign14][3]" value="3">checked</eq>>右侧 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
                             <th>姿势<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="sign[sign15]" value="1" <eq name="data[sign][sign15]" value="1">checked</eq>>前倾 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign15]" value="2" <eq name="data[sign][sign15]" value="2">checked</eq>>前屈 &nbsp;&nbsp;
-                                <input type="radio" name="sign[sign15]" value="3" <eq name="data[sign][sign15]" value="3">checked</eq>>侧弯 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign15][1]" value="1" <eq name="data[sign][sign15][1]" value="1">checked</eq>>前倾 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign15][2]" value="2" <eq name="data[sign][sign15][2]" value="2">checked</eq>>前屈 &nbsp;&nbsp;
+                                <input type="checkbox" name="sign[sign15][3]" value="3" <eq name="data[sign][sign15][3]" value="3">checked</eq>>侧弯 &nbsp;&nbsp;
                             </td>
                         </tr>
                     </table>
@@ -221,11 +221,11 @@
                         <tr>
                             <th width="120">静止性震颤<span class="form-required"></span></th>
                             <td>
-                                <input type="radio" name="motion[motion1]" value="1" <eq name="data[motion][motion1]" value="1">checked</eq> >头部 &nbsp;&nbsp;
-                                <input type="radio" name="motion[motion1]" value="2" <eq name="data[motion][motion1]" value="2">checked</eq> >左上肢 &nbsp;&nbsp;
-                                <input type="radio" name="motion[motion1]" value="3" <eq name="data[motion][motion1]" value="3">checked</eq> >右上肢 &nbsp;&nbsp;
-                                <input type="radio" name="motion[motion1]" value="4" <eq name="data[motion][motion1]" value="4">checked</eq> >左下肢 &nbsp;&nbsp;
-                                <input type="radio" name="motion[motion1]" value="5" <eq name="data[motion][motion1]" value="5">checked</eq> >右下肢 &nbsp;&nbsp;
+                                <input type="checkbox" name="motion[motion1][1]" value="1" <eq name="data[motion][motion1][1]" value="1">checked</eq> >头部 &nbsp;&nbsp;
+                                <input type="checkbox" name="motion[motion1][2]" value="2" <eq name="data[motion][motion1][2]" value="2">checked</eq> >左上肢 &nbsp;&nbsp;
+                                <input type="checkbox" name="motion[motion1][3]" value="3" <eq name="data[motion][motion1][3]" value="3">checked</eq> >右上肢 &nbsp;&nbsp;
+                                <input type="checkbox" name="motion[motion1][4]" value="4" <eq name="data[motion][motion1][4]" value="4">checked</eq> >左下肢 &nbsp;&nbsp;
+                                <input type="checkbox" name="motion[motion1][5]" value="5" <eq name="data[motion][motion1][5]" value="5">checked</eq> >右下肢 &nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
